@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -22,5 +21,12 @@ int main() {
      cout << endl;
    }
    
-
+   
+   
 }
+/*  RULES
+    alive cell if neighbors < 2        cell dies
+    alive cell if 1 < neighbors < 4    cell stays alive
+    alive cell if neighbors > 3        cell dies
+    alive cell if neighbors  ==3       cell becomes alive
+  */
