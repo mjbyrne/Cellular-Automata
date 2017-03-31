@@ -72,11 +72,29 @@ int neighborCount {
         
         // left
         if (neighborNumber == 3){
+          if(x==0){
+            neighborXPos = 99;
+          }
+          else {
+            neighborXPos = x-1;
+          }
+          neighborYPos = y;
           
+          neighbors[y][x] = board{neighborYPos][neighborXPos];
         }
         
         // right
         if (neighborNumber == 4){
+          if(x==99){
+            neighborXPos = 0;
+          }
+          else {
+            neighborXPos = x+1;
+          }
+          
+          neighborYPos = y;
+          
+          neighbors[y][x] = board{neighborYPos][neighborXPos];
           
         }
         
