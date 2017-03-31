@@ -2,6 +2,8 @@
 #include <vector>
 using namespace std;
 
+// make sure to add #include define and make it such that the used board size is determined by input and not just the full 100 by 100
+
 
 int boardCreate {
   int board[100][100];
