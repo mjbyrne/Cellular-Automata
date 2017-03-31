@@ -3,12 +3,26 @@
 using namespace std;
 
 
-template <class Value>
-int neighborNumber(int yVal int xVal)
+int boardCreate {
+  int board[100][100];
+  int a = 0;
+  
+  for (int y = 0; y < 100; ++y){
+    for(int x = 0; x < 100; ++x){
+      a = rand() %2;
+      board[i][j] = a; 
+    }
+  }
+}
 
-
-
-
+int neighborCount {
+  int neighbors[100][100];
+  for (int y = 0; y < 100; ++y){
+    for(int x = 0; x < 100; ++x){
+      
+    }
+  }
+}
 
 
 
