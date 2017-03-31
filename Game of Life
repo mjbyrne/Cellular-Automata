@@ -16,10 +16,67 @@ int boardCreate {
 }
 
 int neighborCount {
+  int aliveNeighbors = 0;
   int neighbors[100][100];
+  int neighborXPos = 0;
+  int neighborYPos = 0;
+  
   for (int y = 0; y < 100; ++y){
     for(int x = 0; x < 100; ++x){
-      
+      for(int neighborNumber = 0; neighborNumber < 8; ++neighborNumber){
+        //above and left
+        if (neighborNumber == 0){ 
+          if (y==0){
+            neighborYPos = 99;
+          }
+          else {
+            neighborYPos = y-1;
+          }
+          if (x==0){
+            neighborXPos = 99;
+          }
+          else{
+            neighborXPos = x-1;
+          }
+          neighbors[y][x] = neighbors[y][x] + board[neighborYPos][neighborXPos];
+        }
+        
+        //above  
+        if (neighborNumber == 1){
+          
+        }
+        
+        //above and right
+        if (neighborNumber == 2){
+          
+        }
+        
+        // left
+        if (neighborNumber == 3){
+          
+        }
+        
+        // right
+        if (neighborNumber == 4){
+          
+        }
+        
+        //below and left
+        if (neighborNumber == 5){
+          
+        }
+        
+        // below
+        if (neighborNumber == 6){
+          
+        }
+        
+        // below and right
+        if (neighborNumber == 7){
+          
+        }
+        
+      }
     }
   }
 }
