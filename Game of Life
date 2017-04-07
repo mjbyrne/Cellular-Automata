@@ -1,18 +1,20 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+#define ROWS 50;
+#define COLUMNS 60;
 
 // make sure to add #include define and make it such that the used board size is determined by input and not just the full 100 by 100
 
 
 int boardCreate {
-  int board[100][100];
+  int board[ROWS][COLUMNS];
   int a = 0;
   
-  for (int y = 0; y < 100; ++y){
-    for(int x = 0; x < 100; ++x){
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x < COLUMNS; ++x){
       a = rand() %2;
-      board[i][j] = a; 
+      board[ROWS][COLUMNS] = a; 
     }
   }
 }
@@ -23,19 +25,19 @@ int neighborCount {
   int neighborXPos = 0;
   int neighborYPos = 0;
   
-  for (int y = 0; y < 100; ++y){
+  for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x < 100; ++x){
       for(int neighborNumber = 0; neighborNumber < 8; ++neighborNumber){
         //above and left
         if (neighborNumber == 0){ 
           if (y==0){
-            neighborYPos = 99;
+            neighborYPos = ROWS-1;
           }
           else {
             neighborYPos = y-1;
           }
           if (x==0){
-            neighborXPos = 99;
+            neighborXPos = COLUMNS-1;
           }
           else{
             neighborXPos = x-1;
@@ -46,7 +48,7 @@ int neighborCount {
         //above  
         if (neighborNumber == 1){
           if(y==0){
-            neighborYPos = 99;
+            neighborYPos = ROWS-1;
           }
           else {
             neighborYPos = y-1;
@@ -57,13 +59,13 @@ int neighborCount {
         
         //above and right
         if (neighborNumber == 2){
-          if(y==99){
+          if(y==ROWS-1){
             neighborYPos = 0
           }
           else{
             neighborYPos = y+1;
           }
-          if(x(==99){
+          if(x(==COLUMNS-1){
             neighborXPos = 0;
           }
           else {
@@ -76,7 +78,7 @@ int neighborCount {
         // left
         if (neighborNumber == 3){
           if(x==0){
-            neighborXPos = 99;
+            neighborXPos = COLUMNS-1;
           }
           else {
             neighborXPos = x-1;
@@ -88,7 +90,7 @@ int neighborCount {
         
         // right
         if (neighborNumber == 4){
-          if(x==99){
+          if(x==COLUMNS-1){
             neighborXPos = 0;
           }
           else {
@@ -103,14 +105,14 @@ int neighborCount {
         
         //below and left
         if (neighborNumber == 5){
-          if (y==99){
+          if (y==ROWS-1){
             neighborYPos = 0;
           }
           else {
             neighborYPos = y-1;
           }
           if(x==0){
-            neighborXPos = 99;
+            neighborXPos = COLUMNS-1;
           }
           else{
             neighborXPos = x-1;
@@ -121,7 +123,7 @@ int neighborCount {
         
         // below
         if (neighborNumber == 6){
-          if(y==99){
+          if(y==ROWS-1){
             neighborYPos = 0;
           }
           else {
@@ -134,13 +136,13 @@ int neighborCount {
         
         // below and right
         if (neighborNumber == 7){
-          if(y==99){
+          if(y==ROWS-1){
             neighborYPos = 0;
           }
           else {
             neighborYPos = y+1;
           }
-          if(x==99){
+          if(x==COLUMNS-1){
             neighborXPos = 0;
           }
           else {
