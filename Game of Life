@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-#define ROWS 50
-#define COLUMNS 100
+#define ROWS 10
+#define COLUMNS 20
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
@@ -15,12 +15,13 @@ void printBoard(int board[ROWS][COLUMNS]) {
       }
     }
   }
+  cout << endl;
 }
 
 
 
 void nextGeneration(int board[ROWS][COLUMNS]) {
-  int neighbors[ROWS][COLUMNS];
+  int neighbors[ROWS][COLUMNS] = {0};
   int neighborXPos = 0;
   int neighborYPos = 0;
   
@@ -178,17 +179,22 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
   
 
 int main(){
-  
+  //Creates board of just zeros
     int board[ROWS][COLUMNS] = {0};
-
-    /*board[0][1] = 1;
+    
+//Glider
+    board[0][1] = 1;
     board[1][2] = 1;
     board[2][0] = 1;
-    board[2][0] = 1;
-    board[2][0] = 1;
-    */
-    
+    board[2][1] = 1;
+    board[2][2] = 1;
+//Glider
+  printBoard(board);
+  
+  for(int numOfGenerations = 0; numOfGenerations <10; numOfGenerations ++){
+    nextGeneration(board);
     printBoard(board);
+  }
 }       
   
   
