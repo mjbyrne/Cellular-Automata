@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-#define ROWS 10
-#define COLUMNS 20
+#define ROWS 6
+#define COLUMNS 6
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
@@ -60,11 +60,11 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
         
         //above and right
         if (neighborNumber == 2){
-          if(y==ROWS-1){
-            neighborYPos = 0;
+          if(y==0){
+            neighborYPos = ROWS-1;
           }
           else{
-            neighborYPos = y+1;
+            neighborYPos = y-1;
           }
           if(x==COLUMNS-1){
             neighborXPos = 0;
@@ -110,7 +110,7 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
             neighborYPos = 0;
           }
           else {
-            neighborYPos = y-1;
+            neighborYPos = y+1;
           }
           if(x==0){
             neighborXPos = COLUMNS-1;
