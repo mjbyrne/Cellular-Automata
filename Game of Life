@@ -1,24 +1,42 @@
 #include <iostream>
-#include <vector>
 using namespace std;
-#define ROWS 50;
-#define COLUMNS 60;
-
-// make sure to add #include define and make it such that the used board size is determined by input and not just the full 100 by 100
+#define ROWS 25
+#define COLUMNS 50
 
 
-int boardCreate {
-  int board[ROWS][COLUMNS];
-  int a = 0;
-  
+void printBoard(int board[ROWS][COLUMNS]) {
   for (int y = 0; y < ROWS; ++y){
-    for(int x = 0; x < COLUMNS; ++x){
-      a = rand() %2;
-      board[ROWS][COLUMNS] = a; 
+    for(int x = 0; x <= COLUMNS; ++x){
+      if(x == COLUMNS){
+        cout << endl;
+      }
+      else {
+        cout << board[ROWS][COLUMNS];
+      }
     }
   }
 }
 
+int main(){
+  
+    int board[ROWS][COLUMNS];
+    int a = 0;
+  
+    for (int y = 0; y < ROWS; ++y){
+      for(int x = 0; x < COLUMNS; ++x){
+        a = rand() %2;
+        board[ROWS][COLUMNS]= 0; 
+      }
+    }
+    
+    
+    printBoard(board);
+}
+
+
+
+
+/*
 int neighborCount {
   int aliveNeighbors = 0;
   int neighbors[100][100];
@@ -156,30 +174,7 @@ int neighborCount {
   }
 }
 
-
-
-int main() {
-   vector<vector<char>> boardVals;
-   // 15x15 board
-   
-   for(int y = 0; y <= 25; y++){
-     vector<char> temp;
-     for(int x = 0; x <=75; x++){
-       temp.push_back('O'); 
-      }
-      boardVals.push_back(temp);
-   }
-   
-   for(int y = 0; y <= 25; y++){
-     for(int x = 0; x <=75; x++){
-       cout << boardVals[y][x];
-     }
-     cout << endl;
-   }
-   
-   
-   
-}
+*/
 /*  RULES
     alive cell if neighbors < 2        cell dies
     alive cell if 1 < neighbors < 4    cell stays alive
