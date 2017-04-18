@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-#define ROWS 25
-#define COLUMNS 50
+#define ROWS 50
+#define COLUMNS 100
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
@@ -11,7 +11,7 @@ void printBoard(int board[ROWS][COLUMNS]) {
         cout << endl;
       }
       else {
-        cout << board[ROWS][COLUMNS];
+        cout << board[y][x];
       }
     }
   }
@@ -19,15 +19,14 @@ void printBoard(int board[ROWS][COLUMNS]) {
 
 
 
-int neighborCount(int board[ROWS][COLUMNS]) {
-  int aliveNeighbors = 0;
+void nextGeneration(int board[ROWS][COLUMNS]) {
   int neighbors[ROWS][COLUMNS];
   int neighborXPos = 0;
   int neighborYPos = 0;
   
-  //Create new board called neighbors and set the value of each space equal to the number of allive neighbors it has
+  //Create new board called neighbors and set the value of each space equal to the number of alive neighbors it has
   for (int y = 0; y < ROWS; ++y){
-    for(int x = 0; x < 100; ++x){
+    for(int x = 0; x < COLUMNS; ++x){
       for(int neighborNumber = 0; neighborNumber < 8; ++neighborNumber){
         //above and left
         if (neighborNumber == 0){ 
@@ -180,13 +179,14 @@ int neighborCount(int board[ROWS][COLUMNS]) {
 
 int main(){
   
-    int board[ROWS][COLUMNS];
-    for (int y = 0; y < ROWS; ++y){
-      for(int x = 0; x < COLUMNS; ++x){
-        board[ROWS][COLUMNS]= 0; 
-      }
-    }
-    
+    int board[ROWS][COLUMNS] = {0};
+
+    /*board[0][1] = 1;
+    board[1][2] = 1;
+    board[2][0] = 1;
+    board[2][0] = 1;
+    board[2][0] = 1;
+    */
     
     printBoard(board);
 }       
