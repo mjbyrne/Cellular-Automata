@@ -17,32 +17,15 @@ void printBoard(int board[ROWS][COLUMNS]) {
   }
 }
 
-int main(){
-  
-    int board[ROWS][COLUMNS];
-    int a = 0;
-  
-    for (int y = 0; y < ROWS; ++y){
-      for(int x = 0; x < COLUMNS; ++x){
-        a = rand() %2;
-        board[ROWS][COLUMNS]= 0; 
-      }
-    }
-    
-    
-    printBoard(board);
-}
-
-
-
 
 
 int neighborCount(int board[ROWS][COLUMNS]) {
   int aliveNeighbors = 0;
-  int neighbors[100][100];
+  int neighbors[ROWS][COLUMNS];
   int neighborXPos = 0;
   int neighborYPos = 0;
   
+  //Create new board called neighbors and set the value of each space equal to the number of allive neighbors it has
   for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x < 100; ++x){
       for(int neighborNumber = 0; neighborNumber < 8; ++neighborNumber){
@@ -172,7 +155,44 @@ int neighborCount(int board[ROWS][COLUMNS]) {
       }
     }
   }
+
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x <= COLUMNS; ++x){
+      if(board[y][x] == 1 and neighbors[y][x] < 2){
+        board[y][x] = 0;
+      }
+      if(board[y][x] == 1 and neighbors[y][x] == 2){
+        board[y][x] = 1;
+      }
+      if(board[y][x] == 1 and neighbors[y][x] == 3){
+        board[y][x] = 1;
+      }
+      if(board[y][x] == 1 and neighbors[y][x] > 3){
+        board[y][x] = 0;
+      }
+      if(board[y][x] == 0 and neighbors[y][x] == 3){
+        board[y][x] = 1;
+      }
+    }
+  }
 }
+  
+
+int main(){
+  
+    int board[ROWS][COLUMNS];
+    for (int y = 0; y < ROWS; ++y){
+      for(int x = 0; x < COLUMNS; ++x){
+        board[ROWS][COLUMNS]= 0; 
+      }
+    }
+    
+    
+    printBoard(board);
+}       
+  
+  
+  
 
 
 /*  RULES
