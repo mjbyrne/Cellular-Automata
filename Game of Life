@@ -36,8 +36,8 @@ int main(){
 
 
 
-/*
-int neighborCount {
+
+int neighborCount(int board[ROWS][COLUMNS]) {
   int aliveNeighbors = 0;
   int neighbors[100][100];
   int neighborXPos = 0;
@@ -78,12 +78,12 @@ int neighborCount {
         //above and right
         if (neighborNumber == 2){
           if(y==ROWS-1){
-            neighborYPos = 0
+            neighborYPos = 0;
           }
           else{
             neighborYPos = y+1;
           }
-          if(x(==COLUMNS-1){
+          if(x==COLUMNS-1){
             neighborXPos = 0;
           }
           else {
@@ -174,7 +174,7 @@ int neighborCount {
   }
 }
 
-*/
+
 /*  RULES
     alive cell if neighbors < 2        cell dies
     alive cell if 1 < neighbors < 4    cell stays alive
