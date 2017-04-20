@@ -5,13 +5,15 @@ using namespace std;
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
+  //prints top border
   for(int i = 0; i <= COLUMNS +2; i++){
-    cout << "_";
+    cout << "-";
   }
   cout << endl;
-  for (int y = 0; y <= ROWS; ++y){
+  for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x <= COLUMNS; ++x){
-      //creates left boarder and first column
+
+      //creates left border and first entry in line      
       if(x==0){
         cout << "|";
         if(board[y][x] ==0){
@@ -21,10 +23,14 @@ void printBoard(int board[ROWS][COLUMNS]) {
         cout << 'x';
         }
       }
+      
+      
       //creates right column and creates new line
       if(x == COLUMNS){
         cout << '|' << endl;
       }
+      
+      
       // fills in the rest of the the columns
       else {
         if(board[y][x] ==0){
@@ -36,7 +42,10 @@ void printBoard(int board[ROWS][COLUMNS]) {
       }
     }
   }
-  cout << endl;
+  for(int i = 0; i <= COLUMNS +2; i++){
+            cout << "-";
+          }
+  cout << endl << endl;
 }
 
 
@@ -212,7 +221,7 @@ int main(){
 //Glider
   printBoard(board);
   
-  for(int numOfGenerations = 0; numOfGenerations <10; numOfGenerations ++){
+  for(int numOfGenerations = 0; numOfGenerations <50; numOfGenerations ++){
     nextGeneration(board);
     printBoard(board);
   }
