@@ -206,25 +206,45 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
     }
   }
 }
-  
 
-int main(){
-  //Creates board of just zeros
-    int board[ROWS][COLUMNS] = {0};
-    
+//sets all values in board to 0
+void clearBoard(int board[ROWS][COLUMNS]){
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x < COLUMNS; ++x){
+      board[y][x] = 0;
+    }
+  }
+}
+
 //Glider
+void makeGlider(int board[ROWS][COLUMNS]){
     board[0][1] = 1;
     board[1][2] = 1;
     board[2][0] = 1;
     board[2][1] = 1;
     board[2][2] = 1;
-//Glider
+}  
+
+
+
+
+
+
+
+int main(){
+  //Creates board of just zeros
+  int board[ROWS][COLUMNS] = {0};
+    
+
+  makeGlider(board);
   printBoard(board);
   
-  for(int numOfGenerations = 0; numOfGenerations <50; numOfGenerations ++){
+  for(int numOfGenerations = 0; numOfGenerations <20; numOfGenerations ++){
     nextGeneration(board);
     printBoard(board);
   }
+  clearBoard(board);
+  printBoard(board);
 }       
   
   
@@ -232,8 +252,8 @@ int main(){
 
 
 /*  RULES
-    alive cell if neighbors < 2        cell dies
-    alive cell if 1 < neighbors < 4    cell stays alive
-    alive cell if neighbors > 3        cell dies
-    alive cell if neighbors  ==3       cell becomes alive
+    If cell is alive and has less than 2 alive neighbors, the cell dies.
+    If cell is alive and has 2 or 3 live neighbors the cell stays alive.
+    If cell is alive and cell has 4 or greater alive neighbors the cell dies.
+    If dead cell has exactly 3 neighbors, the cell becomes alive.
 */
