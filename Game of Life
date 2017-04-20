@@ -217,6 +217,28 @@ void clearBoard(int board[ROWS][COLUMNS]){
   }
 }
 
+
+//iterates over multiple numOfGenerations
+void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
+  int generationsSoFar = 0;
+  
+  cout << generationsSoFar << endl;
+  printBoard(board);
+  generationsSoFar++;
+    
+  for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
+    nextGeneration(board);
+    cout << generationsSoFar << endl;
+    printBoard(board);
+  }
+  
+}
+
+
+
+
+
+
 //Glider
 void makeGlider(int board[ROWS][COLUMNS]){
     board[0][1] = 1;
