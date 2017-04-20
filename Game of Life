@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-#define ROWS 15
-#define COLUMNS 20
+#define ROWS 12
+#define COLUMNS 15
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
@@ -222,13 +222,13 @@ void clearBoard(int board[ROWS][COLUMNS]){
 void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
   int generationsSoFar = 0;
   
-  cout << generationsSoFar << endl;
+  cout << "Generation: " << generationsSoFar << endl;
   printBoard(board);
   generationsSoFar++;
     
   for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
     nextGeneration(board);
-    cout << generationsSoFar << endl;
+    cout << "Generation:" << generationsSoFar << endl;
     printBoard(board);
   }
   
@@ -284,26 +284,19 @@ int main(){
   //Creates board of just zeros
   int board[ROWS][COLUMNS] = {0};
     
-/*
+
   makeGlider(board);
-  printBoard(board);
-  
-  for(int numOfGenerations = 0; numOfGenerations <10; numOfGenerations ++){
-    nextGeneration(board);
-    printBoard(board);
-  }
+  runGenerations(board, 75);
   clearBoard(board);
-*/
 
   makeCheshireCat(board);
-  printBoard(board);
-  for(int numOfGenerations = 0; numOfGenerations <10; numOfGenerations ++){
-    nextGeneration(board);
-    printBoard(board);
-  }
+  runGenerations(board, 10);
   clearBoard(board);
-  
-  
+
+
+
+
+
   
 }       
   
