@@ -26,7 +26,7 @@ void printBoard(int board[ROWS][COLUMNS]) {
       
       
       //creates right border and creates new line
-      if(x == COLUMNS){
+      else if(x == COLUMNS){
         cout << '|' << endl;
       }
       
@@ -349,14 +349,8 @@ void makePulsar(int board[ROWS][COLUMNS]){
 int main(){
   //Creates board of just zeros
   int board[ROWS][COLUMNS] = {0};
-  printBoard(board);
-  board[1][1] = 1;
-  printBoard(board);
-  cout << board[1][1];
-  cout << endl;
-  cout << board[1][1];
-    
-/*
+
+
   makeGlider(board);
   runGenerations(board, 12);
   clearBoard(board);
@@ -371,7 +365,7 @@ int main(){
 
 
 
-*/
+
 
   
 }       
