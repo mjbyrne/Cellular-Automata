@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-#define ROWS 12
-#define COLUMNS 15
+#define ROWS 20
+#define COLUMNS 20
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
@@ -276,6 +276,72 @@ void makeCheshireCat(int board[ROWS][COLUMNS]){
   board[7][8] = 1;
 }
 
+void makePulsar(int board[ROWS][COLUMNS]){
+  board[1][3] = 1;
+  board[1][4] = 1;
+  board[1][5] = 1;
+  
+  board[1][9] = 1;
+  board[1][10] = 1;
+  board[1][11] = 1;
+ 
+  board[3][1] = 1;
+  board[4][1] = 1;
+  board[5][1] = 1;
+  
+  board[3][6] = 1;
+  board[4][6] = 1;
+  board[5][6] = 1;
+ 
+  board[3][8] = 1;
+  board[4][8] = 1;
+  board[5][8] = 1;
+  
+  board[3][13] = 1;
+  board[4][13] = 1;
+  board[5][13] = 1;
+  
+  board[6][3] = 1;
+  board[6][4] = 1;
+  board[6][5] = 1;
+  
+  board[6][9] = 1;
+  board[6][10] = 1;
+  board[6][11] = 1;
+  
+  board[8][3] = 1;
+  board[8][4] = 1;
+  board[8][5] = 1;
+  
+  board[8][9] = 1;
+  board[8][10] = 1;
+  board[8][11] = 1;
+  
+  board[9][1] = 1;
+  board[10][1] = 1;
+  board[11][1] = 1;
+  
+  board[9][6] = 1;
+  board[10][6] = 1;
+  board[11][6] = 1;
+ 
+  board[9][8] = 1;
+  board[10][8] = 1;
+  board[11][8] = 1;
+  
+  board[9][13] = 1;
+  board[10][13] = 1;
+  board[11][13] = 1;
+  
+  board[13][3] = 1;
+  board[13][4] = 1;
+  board[13][5] = 1;
+  
+  board[13][9] = 1;
+  board[13][10] = 1;
+  board[13][11] = 1;
+}
+
 
 
 
@@ -286,12 +352,16 @@ int main(){
     
 
   makeGlider(board);
-  runGenerations(board, 75);
+  runGenerations(board, 12);
   clearBoard(board);
 
   makeCheshireCat(board);
   runGenerations(board, 10);
   clearBoard(board);
+  
+  makePulsar(board);
+  runGenerations(board, 10);
+  clearBoard;
 
 
 
