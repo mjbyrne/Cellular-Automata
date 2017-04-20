@@ -5,13 +5,34 @@ using namespace std;
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
-  for (int y = 0; y < ROWS; ++y){
+  for(int i = 0; i <= COLUMNS +2; i++){
+    cout << "_";
+  }
+  cout << endl;
+  for (int y = 0; y <= ROWS; ++y){
     for(int x = 0; x <= COLUMNS; ++x){
-      if(x == COLUMNS){
-        cout << endl;
+      //creates left boarder and first column
+      if(x==0){
+        cout << "|";
+        if(board[y][x] ==0){
+          cout << 'o';
+        }
+        else {
+        cout << 'x';
+        }
       }
+      //creates right column and creates new line
+      if(x == COLUMNS){
+        cout << '|' << endl;
+      }
+      // fills in the rest of the the columns
       else {
-        cout << board[y][x];
+        if(board[y][x] ==0){
+          cout << 'o';
+        }
+        else {
+        cout << 'x';
+        }
       }
     }
   }
