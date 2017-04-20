@@ -217,19 +217,53 @@ void clearBoard(int board[ROWS][COLUMNS]){
   }
 }
 
-
 //iterates over multiple numOfGenerations
 void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
+  //create a secondary board and set it equal to the starting board
+  int lastGenBoard[ROWS][COLUMNS] = {0};
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x < COLUMNS; ++x){
+      lastGenBoard[y][x] = board[y][x];
+    }
+  }
   int generationsSoFar = 0;
   
+  // print out the starting board as generation 0
   cout << "Generation: " << generationsSoFar << endl;
   printBoard(board);
   generationsSoFar++;
+  
+  bool areTheBoardsTheSame = true;
     
   for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
+    //advance one generation
     nextGeneration(board);
-    cout << "Generation:" << generationsSoFar << endl;
-    printBoard(board);
+    
+    //check to see if the current generation has changed at all
+    areTheBoardsTheSame = true;
+    for (int y = 0; y < ROWS; ++y){
+      for(int x = 0; x < COLUMNS; ++x){
+        if (lastGenBoard[y][x] != board[y][x]){
+          areTheBoardsTheSame = false;
+        }
+      }
+    }
+    
+    
+    if (areTheBoardsTheSame == true){
+      cout << "This board has reached a static image." << endl;
+      cout << "All future generations are identical." << endl << endl << endl << endl;
+      break;
+    }
+    else {
+      cout << "Generation:" << generationsSoFar << endl;
+      printBoard(board);
+      for (int y = 0; y < ROWS; ++y){
+        for(int x = 0; x < COLUMNS; ++x){
+          lastGenBoard[y][x] = board[y][x];
+        }
+      }
+    }
   }
   
 }
@@ -369,8 +403,7 @@ int main(){
 
   
 }       
-  
-  
+
   
 
 
