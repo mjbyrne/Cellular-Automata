@@ -25,7 +25,7 @@ void printBoard(int board[ROWS][COLUMNS]) {
       }
       
       
-      //creates right column and creates new line
+      //creates right border and creates new line
       if(x == COLUMNS){
         cout << '|' << endl;
       }
@@ -42,6 +42,7 @@ void printBoard(int board[ROWS][COLUMNS]) {
       }
     }
   }
+  //creates bottom border
   for(int i = 0; i <= COLUMNS +2; i++){
             cout << "-";
           }
