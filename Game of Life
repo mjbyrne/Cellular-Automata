@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
-#define ROWS 6
-#define COLUMNS 6
+#define ROWS 15
+#define COLUMNS 20
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
@@ -17,7 +17,7 @@ void printBoard(int board[ROWS][COLUMNS]) {
       if(x==0){
         cout << "|";
         if(board[y][x] ==0){
-          cout << 'o';
+          cout << ' ';
         }
         else {
         cout << 'x';
@@ -34,7 +34,7 @@ void printBoard(int board[ROWS][COLUMNS]) {
       // fills in the rest of the the columns
       else {
         if(board[y][x] ==0){
-          cout << 'o';
+          cout << ' ';
         }
         else {
         cout << 'x';
@@ -227,6 +227,32 @@ void makeGlider(int board[ROWS][COLUMNS]){
 }  
 
 
+//Cheshire cat
+void makeCheshireCat(int board[ROWS][COLUMNS]){
+  board[2][3] = 1;
+  board[2][6] = 1;
+  
+  board[3][3] = 1;
+  board[3][4] = 1;
+  board[3][5] = 1;
+  board[3][6] = 1;
+  
+  board[5][4] = 1;
+  board[5][5] = 1;
+  
+  board[4][2] = 1;
+  board[5][2] = 1;
+  board[6][2] = 1;
+  
+  board[4][7] = 1;
+  board[5][7] = 1;
+  board[6][7] = 1;
+  
+  board[7][3] = 1;
+  board[7][4] = 1;
+  board[7][5] = 1;
+  board[7][6] = 1;
+}
 
 
 
@@ -236,16 +262,27 @@ int main(){
   //Creates board of just zeros
   int board[ROWS][COLUMNS] = {0};
     
-
+/*
   makeGlider(board);
   printBoard(board);
   
-  for(int numOfGenerations = 0; numOfGenerations <20; numOfGenerations ++){
+  for(int numOfGenerations = 0; numOfGenerations <10; numOfGenerations ++){
     nextGeneration(board);
     printBoard(board);
   }
   clearBoard(board);
+*/
+
+  makeCheshireCat(board);
   printBoard(board);
+  for(int numOfGenerations = 0; numOfGenerations <10; numOfGenerations ++){
+    nextGeneration(board);
+    printBoard(board);
+  }
+  clearBoard(board);
+  
+  
+  
 }       
   
   
