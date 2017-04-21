@@ -367,7 +367,7 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
   int boardsPerPage = PAGEWIDTH / (COLUMNS+5);
   
   //the startingColumn will be the width of one board times the number of boards already placed
-  int startingColumn = boardsOnPageSoFar * (COLUMNS + 5) 
+  int startingColumn = boardsOnPageSoFar * (COLUMNS + 5); 
   
   
   
