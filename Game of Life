@@ -5,11 +5,17 @@ using namespace std;
 
 
 void printBoard(int board[ROWS][COLUMNS]) {
+  
   //prints top border
-  for(int i = 0; i <= COLUMNS +2; i++){
+  cout << '+';
+  for(int i = 0; i < COLUMNS; i++){
     cout << "-";
   }
-  cout << endl;
+  cout << '+' << endl;
+  
+  
+  
+  
   for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x <= COLUMNS; ++x){
 
@@ -43,10 +49,11 @@ void printBoard(int board[ROWS][COLUMNS]) {
     }
   }
   //creates bottom border
-  for(int i = 0; i <= COLUMNS +2; i++){
-            cout << "-";
-          }
-  cout << endl << endl;
+  cout << '+';
+  for(int i = 0; i < COLUMNS; i++){
+    cout << "-";
+  }
+  cout << '+' << endl;
 }
 
 
