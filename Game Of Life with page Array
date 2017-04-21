@@ -48,7 +48,6 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
   }
   
     int halfwayPoint = COLUMNS/2;
-    pageArray[ROWS + 2][startingColumn] = '+';
     int GenDigits[3] ={0};
     
     
