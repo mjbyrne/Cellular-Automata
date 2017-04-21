@@ -255,10 +255,19 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
       lastGenBoard[y][x] = board[y][x];
     }
   }
+  //number of generations iterated so far
   int generationsSoFar = 0;
   
+  //number of boards on the page array
+  int boardsOnPageSoFar = 0;
+  
+  //number of full boards that can fit on one page, the +5 is because 2 are from the border and 3 will be the spaces in between boards
+  int boardsPerPage = PAGEWIDTH / (COLUMNS+5);
+  
+  
+  
+  
   // print out the starting board as generation 0
-  cout << "Generation: " << generationsSoFar << endl;
   printBoard(board);
   
   //creates bottom border
