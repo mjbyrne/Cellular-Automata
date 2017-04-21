@@ -14,9 +14,9 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
   pageArray[0][startingColumn] = '+';
   
   for(int i = 0; i < COLUMNS; i++){
-    pageArray[0][i + startingColumn] = "-";
+    pageArray[0][i + startingColumn] = '-';
   }
-  pageArray[0][startingColumn + COLUMNS] = "+";
+  pageArray[0][startingColumn + COLUMNS] = '+';
   
   
   
@@ -26,13 +26,13 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
 
       //creates left border    
       if(x==0){
-        pageArray[y][x = startingColumn]= "|";
+        pageArray[y][x = startingColumn]= '|';
       }
       
       
       //creates right border
       else if(x == COLUMNS+2){
-        pageArray[y][x + startingColumn] = "|";
+        pageArray[y][x + startingColumn] = '|';
       }
       
       
@@ -58,7 +58,7 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     
     //gets last number first so has to start in GenDigits[2] and go backwards
     int digitStartingSpot = 2;
-    generationsSoFarCopy = generationsSoFar;
+    int generationsSoFarCopy = generationsSoFar;
     int digit = 0;
     
     //puts the generation number in an array of size 3 by digit so we can convert to character for the character array
@@ -79,28 +79,28 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
         if (GenDigits[0] == 0){
           GenDigitsChar[0] = '0';
         }
-        else if GenDigits[0] == 1){
+        else if (GenDigits[0] == 1){
           GenDigitsChar[0] = '1';
         }
-        else if GenDigits[0] == 2){
+        else if (GenDigits[0] == 2){
           GenDigitsChar[0] = '2';
         }
-        else if GenDigits[0] == 3){
+        else if (GenDigits[0] == 3){
           GenDigitsChar[0] = '3';
         }
-        else if GenDigits[0] == 4){
+        else if (GenDigits[0] == 4){
           GenDigitsChar[0] = '4';
         }
-        else if GenDigits[0] == 5){
+        else if (GenDigits[0] == 5){
           GenDigitsChar[0] = '5';
         }
-        else if GenDigits[0] == 6){
+        else if (GenDigits[0] == 6){
           GenDigitsChar[0] = '6';
         }
-        else if GenDigits[0] == 7){
+        else if (GenDigits[0] == 7){
           GenDigitsChar[0] = '7';
         }
-        else if GenDigits[0] == 8){
+        else if (GenDigits[0] == 8){
           GenDigitsChar[0] = '8';
         }
         else {
@@ -118,28 +118,28 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
         if (GenDigits[1] == 0){
           GenDigitsChar[1] = '0';
         }
-        else if GenDigits[1] == 1){
+        else if (GenDigits[1] == 1){
           GenDigitsChar[1] = '1';
         }
-        else if GenDigits[1] == 2){
+        else if (GenDigits[1] == 2){
           GenDigitsChar[1] = '2';
         }
-        else if GenDigits[1] == 3){
+        else if (GenDigits[1] == 3){
           GenDigitsChar[1] = '3';
         }
-        else if GenDigits[1] == 4){
+        else if (GenDigits[1] == 4){
           GenDigitsChar[1] = '4';
         }
-        else if GenDigits[1] == 5){
+        else if (GenDigits[1] == 5){
           GenDigitsChar[1] = '5';
         }
-        else if GenDigits[1] == 6){
+        else if (GenDigits[1] == 6){
           GenDigitsChar[1] = '6';
         }
-        else if GenDigits[1] == 7){
+        else if (GenDigits[1] == 7){
           GenDigitsChar[1] = '7';
         }
-        else if GenDigits[1] == 8){
+        else if (GenDigits[1] == 8){
           GenDigitsChar[1] = '8';
         }
         else {
@@ -149,28 +149,28 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
       if (GenDigits[2] == 0){
           GenDigitsChar[2] = '0';
         }
-        else if GenDigits[2] == 1){
+        else if (GenDigits[2] == 1){
           GenDigitsChar[2] = '1';
         }
-        else if GenDigits[2] == 2){
+        else if (GenDigits[2] == 2){
           GenDigitsChar[2] = '2';
         }
-        else if GenDigits[2] == 3){
+        else if (GenDigits[2] == 3){
           GenDigitsChar[2] = '3';
         }
-        else if GenDigits[2] == 4){
+        else if (GenDigits[2] == 4){
           GenDigitsChar[2] = '4';
         }
-        else if GenDigits[2] == 5){
+        else if (GenDigits[2] == 5){
           GenDigitsChar[2] = '5';
         }
-        else if GenDigits[2] == 6){
+        else if (GenDigits[2] == 6){
           GenDigitsChar[2] = '6';
         }
-        else if GenDigits[2] == 7){
+        else if (GenDigits[2] == 7){
           GenDigitsChar[2] = '7';
         }
-        else if GenDigits[2] == 8){
+        else if (GenDigits[2] == 8){
           GenDigitsChar[2] = '8';
         }
         else {
@@ -194,7 +194,7 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     pageArray[ROWS + 2][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
     pageArray[ROWS + 2][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
     
-    for(int = 0; i < halfwayPoint - 3; i++){
+    for(int i = 0; i < halfwayPoint - 3; i++){
       //adds second half of border after the gen number
       if(i == halfwayPoint -4){
         pageArray[ROWS +2][startingColumn + halfwayPoint + 4 + i] = '+';
@@ -667,7 +667,7 @@ int main(){
   makeGlider(board);
   runGenerations(board, pageArray, 12);
   clearBoard(board);
-
+/*
   makeCheshireCat(board);
   runGenerations(board, pageArray, 10);
   clearBoard(board);
@@ -681,7 +681,7 @@ int main(){
   makeGliderGun(board);
   runGenerations(board, pageArray, 55);
   clearBoard(board);
-
+*/
 
 
 
