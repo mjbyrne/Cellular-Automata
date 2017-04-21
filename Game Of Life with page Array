@@ -11,8 +11,6 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
   
   
   //adds top border
-  
-  
   for(int i = 0; i < COLUMNS +2; i++){
     pageArray[0][i + startingColumn] = '-';
   }
@@ -49,7 +47,6 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     }
   }
   
-    //creates bottom border
     int halfwayPoint = COLUMNS/2;
     pageArray[ROWS + 2][startingColumn] = '+';
     int GenDigits[3] ={0};
@@ -65,7 +62,7 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     //puts the generation number in an array of size 3 by digit so we can convert to character for the character array
     while(generationsSoFarCopy >10){
       digit = generationsSoFarCopy%10;
-      generationsSoFarCopy/10;
+      generationsSoFarCopy = generationsSoFarCopy/10;
       GenDigits[digitStartingSpot] = digit;
       digitStartingSpot = digitStartingSpot -1;
     }
@@ -122,29 +119,27 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     
     
     // subtract 3 since using 7 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
-    for(int i = 0; i < halfwayPoint - 3; i++){
-      pageArray[ROWS + 2][i + startingColumn] = '-';
+    for(int i = 0; i < COLUMNS +2; i++){
+    pageArray[ROWS + 1][i + startingColumn] = '-';
     }
-    //adds the generatino to the center of the bottom border
-    pageArray[ROWS + 2][startingColumn + halfwayPoint -3] = 'G';
-    pageArray[ROWS + 2][startingColumn + halfwayPoint -2] = 'e';
-    pageArray[ROWS + 2][startingColumn + halfwayPoint -1] = 'n';
-    pageArray[ROWS + 2][startingColumn + halfwayPoint] = ' ';
-    pageArray[ROWS + 2][startingColumn + halfwayPoint +1] = GenDigitsChar[0];
-    pageArray[ROWS + 2][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
-    pageArray[ROWS + 2][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
-    
+  
+    //adds the generation to the center of the bottom border
+    pageArray[ROWS + 1][startingColumn + halfwayPoint -3] = 'G';
+    pageArray[ROWS + 1][startingColumn + halfwayPoint -2] = 'e';
+    pageArray[ROWS + 1][startingColumn + halfwayPoint -1] = 'n';
+    pageArray[ROWS + 1][startingColumn + halfwayPoint] = ' ';
+    pageArray[ROWS + 1][startingColumn + halfwayPoint +1] = GenDigitsChar[0];
+    pageArray[ROWS + 1][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
+    pageArray[ROWS + 1][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
+    pageArray[ROWS + 1][startingColumn] = '+';
+    pageArray[ROWS + 1][startingColumn + COLUMNS+2] = '+';
     for(int i = 0; i < halfwayPoint - 3; i++){
       //adds second half of border after the gen number
-      if(i == halfwayPoint -4){
-        pageArray[ROWS +2][startingColumn + halfwayPoint + 4 + i] = '+';
-      }
-      else {
-        pageArray[ROWS +2][startingColumn + halfwayPoint + 4 + i] = '-';
+
     }
-  }
   
-}
+  }
+
 
 void printPage(char pageArray[ROWS + 5][PAGEWIDTH]){
   for(int y = 0; y < ROWS +5; ++y){
