@@ -435,25 +435,10 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
   
   //add the starting board to pageArray
   boardToPage(board, pageArray, startingColumn, generationsSoFar);
-  generationsSoFar = generationsSoFar +1; 
+  generationsSoFar ++; 
+  boardsOnPageSoFar ++; 
   
-  
-  /*
-  //creates bottom border
-    int halfwayPoint = COLUMNS/2;
-    cout << '+';
-    // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and two for the number of generations
-    for(int i = 0; i < halfwayPoint - 3; i++){
-      cout << "-";
-    }
-    cout << "Gen " << setw(3) << generationsSoFar; 
-    for(int i = halfwayPoint + 3; i < COLUMNS-1; i++){
-      cout << '-';
-    }
-    cout << '+' << endl;
-    */
-  generationsSoFar++;
-  
+  //flag to be used to see if the board changes
   bool areTheBoardsTheSame = true;
     
   for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
@@ -472,35 +457,36 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
     
     
     if (areTheBoardsTheSame == true){
+      printPage(pageArray);
       cout << "This board has reached a static image." << endl;
       cout << "All future generations are identical." << endl << endl << endl << endl;
       break;
     }
-    else {
-      printBoard(board);
-      for (int y = 0; y < ROWS; ++y){
-        for(int x = 0; x < COLUMNS; ++x){
-          lastGenBoard[y][x] = board[y][x];
-        }
-      }
+    
+    //if the page is full, print it, clear it, add the board to the page, and set counter of boards to 1
+    else if (boardsOnPageSoFar == boardsPerPage) {
+      printPage(pageArray);
+      clearPageArray(pageArray);
+      boardToPage(board, pageArray, startingColumn, generationsSoFar);
+      boardsOnPageSoFar = 1;
     }
     
-    /*
-    //creates bottom border
-    int halfwayPoint = COLUMNS/2;
-    cout << '+';
-    // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and two for the number of generations
-    for(int i = 0; i < halfwayPoint - 3; i++){
-      cout << "-";
+    //add board to page
+    else {
+      boardToPage(board, pageArray, startingColumn, generationsSoFar);
+      boardsOnPageSoFar++;
     }
-    cout << "Gen " << setw(3) << generationsSoFar; 
-    for(int i = halfwayPoint + 3; i < COLUMNS-1; i++){
-      cout << '-';
-    }
-    cout << '+' << endl;
-    */
+    
+    //sets the last gen board to current board
+    for (int y = 0; y < ROWS; ++y){
+      for(int x = 0; x < COLUMNS; ++x){
+        lastGenBoard[y][x] = board[y][x];
+        }
+      }
   }
-  
+  //have to print what is left on final page
+  printPage(pageArray);
+  clearPageArray(pageArray);
   
 }
 
