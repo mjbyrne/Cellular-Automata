@@ -59,8 +59,31 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     //creates bottom border
     int halfwayPoint = COLUMNS/2;
     pageArray[ROWS + 2][startingColumn] = '+';
-    int genDigits[3] ={0};
-    while
+    int GenDigits[3] ={0};
+    
+    
+    
+    //MAYBE JUST USE INT TO CHAR
+    //gets last number first so has to start in GenDigits[2] and go backwards
+    int digitStartingSpot = 2;
+    generationsSoFarCopy = generationsSoFar;
+    int digit = 0;
+    while(generationsSoFarCopy >10){
+      digit = generationsSoFarCopy%10;
+      generationsSoFarCopy/10;
+      GenDigits[digitStartingSpot] = digit;
+      digitStartingSpot = digitStartingSpot -1;
+    }
+    GenDigits[digitStartingSpot] = digit;
+    
+    char GenDigitsChar[3] = {0};
+    for(int z = 0; z<3; z++){
+      if (generationsSoFar < 100){
+        GenDigitsChar[z] = ' ';
+      }
+    }
+      
+    
     
     
     // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and two for the number of generations
@@ -561,8 +584,20 @@ int main(){
 }     
 
 //http://www.cplusplus.com/doc/tutorial/files/ look here to figure out text file
-  
 
+
+/* how to get each digit in a number
+  int a = 123;
+  int digit = 0;
+  
+  while(a>=10){
+    digit = a%10;
+    a = a/10;
+    cout << digit << endl;
+  }
+  digit = a;
+  cout << digit << endl;  
+*/
 
 /*  RULES
     If cell is alive and has less than 2 alive neighbors, the cell dies.
