@@ -8,6 +8,8 @@ using namespace std;
 //prints everything but bottom border
 void printBoard(int board[ROWS][COLUMNS]) {
   
+  int pageWidth = 72;
+  
   //prints top border
   cout << '+';
   for(int i = 0; i < COLUMNS; i++){
@@ -474,8 +476,10 @@ int main(){
   runGenerations(board, 10);
   clearBoard(board);
   
+  
+  // make sure the board is sufficiently large enough for the glider gun
   makeGliderGun(board);
-  runGenerations(board, 99);
+  runGenerations(board, 55);
   clearBoard(board);
 
 
@@ -483,8 +487,9 @@ int main(){
 
 
   
-}       
+}     
 
+//http://www.cplusplus.com/doc/tutorial/files/ look here to figure out text file
   
 
 
