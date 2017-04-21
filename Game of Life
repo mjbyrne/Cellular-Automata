@@ -1,9 +1,11 @@
 #include <iostream>
+#include <iomanip>
 using namespace std;
 #define ROWS 20
-#define COLUMNS 20
+#define COLUMNS 25
 
 
+//prints everything but bottom border
 void printBoard(int board[ROWS][COLUMNS]) {
   
   //prints top border
@@ -48,13 +50,8 @@ void printBoard(int board[ROWS][COLUMNS]) {
       }
     }
   }
-  //creates bottom border
-  cout << '+';
-  for(int i = 0; i < COLUMNS; i++){
-    cout << "-";
-  }
-  cout << '+' << endl;
 }
+
 
 
 
@@ -224,6 +221,10 @@ void clearBoard(int board[ROWS][COLUMNS]){
   }
 }
 
+
+
+
+
 //iterates over multiple numOfGenerations
 void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
   //create a secondary board and set it equal to the starting board
@@ -263,7 +264,6 @@ void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
       break;
     }
     else {
-      cout << "Generation:" << generationsSoFar << endl;
       printBoard(board);
       for (int y = 0; y < ROWS; ++y){
         for(int x = 0; x < COLUMNS; ++x){
@@ -271,7 +271,21 @@ void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
         }
       }
     }
+    
+    //creates bottom border
+    int halfwayPoint = COLUMNS/2;
+    cout << '+';
+    // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and two for the number of generations
+    for(int i = 0; i < halfwayPoint - 3; i++){
+      cout << "-";
+    }
+    cout << "Gen " << setw(3) << generationsSoFar; 
+    for(int i = halfwayPoint + 3; i < COLUMNS-1; i++){
+      cout << '-';
+    }
+    cout << '+' << endl;
   }
+  
   
 }
 
