@@ -11,12 +11,13 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
   
   
   //adds top border
-  pageArray[0][startingColumn] = '+';
   
-  for(int i = 0; i < COLUMNS; i++){
+  
+  for(int i = 0; i < COLUMNS +2; i++){
     pageArray[0][i + startingColumn] = '-';
   }
-  pageArray[0][startingColumn + COLUMNS] = '+';
+  pageArray[0][startingColumn] = '+';
+  pageArray[0][startingColumn + COLUMNS+2] = '+';
   
   
   
@@ -26,23 +27,23 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
 
       //creates left border    
       if(x==0){
-        pageArray[y][x = startingColumn]= '|';
+        pageArray[y+1][x = startingColumn]= '|';
       }
       
       
       //creates right border
       else if(x == COLUMNS+2){
-        pageArray[y][x + startingColumn] = '|';
+        pageArray[y+1][x + startingColumn] = '|';
       }
       
       
       // fills in the rest of the the columns, when x=1 actually looking at board column 0
       else {
         if(board[y][x-1] == 0){
-          pageArray[y][x + startingColumn] = ' ';
+          pageArray[y+1][x + startingColumn] = ' ';
         }
         else {
-        pageArray[y][x + startingColumn] = 'X';
+        pageArray[y+1][x + startingColumn] = 'X';
         }
       }
     }
