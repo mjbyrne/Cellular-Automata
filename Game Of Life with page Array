@@ -27,14 +27,6 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
       //creates left border    
       if(x==0){
         pageArray[y][x = startingColumn]= "|";
-        
-        /*
-        if(board[y][x] ==0){
-          cout << ' ';
-        }
-        else {
-        cout << 'x';
-        }*/
       }
       
       
@@ -50,7 +42,7 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
           pageArray[y][x + startingColumn] = ' ';
         }
         else {
-        pageArray[y][x + startingColumn] = 'x';
+        pageArray[y][x + startingColumn] = 'X';
         }
       }
     }
@@ -189,7 +181,7 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     
     
     
-    // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
+    // subtract 3 since using 7 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
     for(int i = 0; i < halfwayPoint - 3; i++){
       pageArray[ROWS + 2][i + startingColumn] = "-";
     }
@@ -214,7 +206,18 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
   
 }
 
-
+void printPage(char pageArray[ROWS + 5][PAGEWIDTH]){
+  for(int y = 0; y < ROWS +5; ++y){
+    for(int x = 0; x < PAGEWIDTH; ++x){
+      if(x == PAGEWIDTH -1){
+        cout << endl;
+      }
+      else{
+        cout pageArray[y][x];
+      }
+    }
+  }
+}
 
 
 
