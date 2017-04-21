@@ -433,8 +433,10 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
   
   
   
-  // print out the starting board as generation 0
-  printBoard(board);
+  //add the starting board to pageArray
+  boardToPage(board, pageArray, startingColumn, generationsSoFar);
+  generationsSoFar = generationsSoFar +1; 
+  
   
   /*
   //creates bottom border
