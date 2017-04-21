@@ -59,12 +59,14 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     int digit = 0;
     
     //puts the generation number in an array of size 3 by digit so we can convert to character for the character array
-    while(generationsSoFarCopy >10){
+ 
+    for(int i = 0; i < 3; i++){
       digit = generationsSoFarCopy%10;
       generationsSoFarCopy = generationsSoFarCopy/10;
       GenDigits[digitStartingSpot] = digit;
-      digitStartingSpot = digitStartingSpot -1;
+      digitStartingSpot--;
     }
+    
     GenDigits[digitStartingSpot] = digit;
     
     char GenDigitsChar[3] = {0};
