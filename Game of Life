@@ -247,7 +247,7 @@ void clearPageArray(char pageArray[ROWS + 5][PAGEWIDTH]){
 
 
 //iterates over multiple numOfGenerations
-void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
+void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], int numOfGenerations){
   //create a secondary board and set it equal to the starting board
   int lastGenBoard[ROWS][COLUMNS] = {0};
   for (int y = 0; y < ROWS; ++y){
@@ -499,21 +499,21 @@ int main(){
 
 
   makeGlider(board);
-  runGenerations(board, 12);
+  runGenerations(board, pageArray, 12);
   clearBoard(board);
 
   makeCheshireCat(board);
-  runGenerations(board, 10);
+  runGenerations(board, pageArray, 10);
   clearBoard(board);
   
   makePulsar(board);
-  runGenerations(board, 10);
+  runGenerations(board, pageArray, 10);
   clearBoard(board);
   
   
   // make sure the board is sufficiently large enough for the glider gun
   makeGliderGun(board);
-  runGenerations(board, 55);
+  runGenerations(board, pageArray, 55);
   clearBoard(board);
 
 
