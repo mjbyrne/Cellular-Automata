@@ -72,110 +72,49 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     
     char GenDigitsChar[3] = {0};
     for(int z = 0; z<3; z++){
-      if (GenDigits[0] == 0){
+      if (z == 0 && GenDigits[0] == 0){
         GenDigitsChar[z] = ' ';
       }
+      else if (z==1 && GenDigits[0] == 0 && GenDigits[1] == 0){
+        GenDigitsChar[z] = ' ';
+      }
+        
       else{
-        if (GenDigits[0] == 0){
-          GenDigitsChar[0] = '0';
+        if (GenDigits[z] == 0){
+          GenDigitsChar[z] = '0';
         }
-        else if (GenDigits[0] == 1){
-          GenDigitsChar[0] = '1';
+        else if (GenDigits[z] == 1){
+          GenDigitsChar[z] = '1';
         }
-        else if (GenDigits[0] == 2){
-          GenDigitsChar[0] = '2';
+        else if (GenDigits[z] == 2){
+          GenDigitsChar[z] = '2';
         }
-        else if (GenDigits[0] == 3){
-          GenDigitsChar[0] = '3';
+        else if (GenDigits[z] == 3){
+          GenDigitsChar[z] = '3';
         }
-        else if (GenDigits[0] == 4){
-          GenDigitsChar[0] = '4';
+        else if (GenDigits[z] == 4){
+          GenDigitsChar[z] = '4';
         }
-        else if (GenDigits[0] == 5){
-          GenDigitsChar[0] = '5';
+        else if (GenDigits[z] == 5){
+          GenDigitsChar[z] = '5';
         }
-        else if (GenDigits[0] == 6){
-          GenDigitsChar[0] = '6';
+        else if (GenDigits[z] == 6){
+          GenDigitsChar[z] = '6';
         }
-        else if (GenDigits[0] == 7){
-          GenDigitsChar[0] = '7';
+        else if (GenDigits[z] == 7){
+          GenDigitsChar[z] = '7';
         }
-        else if (GenDigits[0] == 8){
-          GenDigitsChar[0] = '8';
+        else if (GenDigits[z] == 8){
+          GenDigitsChar[z] = '8';
         }
         else {
-          GenDigitsChar[0] = '9';
+          GenDigitsChar[z] = '9';
         }
-        
-       
       }
     }
-      if (GenDigits[1] == 0 and GenDigits[0] == 0){
-        GenDigitsChar[1] = ' ';
-        
-      }
-      else {
-        if (GenDigits[1] == 0){
-          GenDigitsChar[1] = '0';
-        }
-        else if (GenDigits[1] == 1){
-          GenDigitsChar[1] = '1';
-        }
-        else if (GenDigits[1] == 2){
-          GenDigitsChar[1] = '2';
-        }
-        else if (GenDigits[1] == 3){
-          GenDigitsChar[1] = '3';
-        }
-        else if (GenDigits[1] == 4){
-          GenDigitsChar[1] = '4';
-        }
-        else if (GenDigits[1] == 5){
-          GenDigitsChar[1] = '5';
-        }
-        else if (GenDigits[1] == 6){
-          GenDigitsChar[1] = '6';
-        }
-        else if (GenDigits[1] == 7){
-          GenDigitsChar[1] = '7';
-        }
-        else if (GenDigits[1] == 8){
-          GenDigitsChar[1] = '8';
-        }
-        else {
-          GenDigitsChar[1] = '9';
-      }
+    
       
-      if (GenDigits[2] == 0){
-          GenDigitsChar[2] = '0';
-        }
-        else if (GenDigits[2] == 1){
-          GenDigitsChar[2] = '1';
-        }
-        else if (GenDigits[2] == 2){
-          GenDigitsChar[2] = '2';
-        }
-        else if (GenDigits[2] == 3){
-          GenDigitsChar[2] = '3';
-        }
-        else if (GenDigits[2] == 4){
-          GenDigitsChar[2] = '4';
-        }
-        else if (GenDigits[2] == 5){
-          GenDigitsChar[2] = '5';
-        }
-        else if (GenDigits[2] == 6){
-          GenDigitsChar[2] = '6';
-        }
-        else if (GenDigits[2] == 7){
-          GenDigitsChar[2] = '7';
-        }
-        else if (GenDigits[2] == 8){
-          GenDigitsChar[2] = '8';
-        }
-        else {
-          GenDigitsChar[2] = '9';
-      }
+      
       
       //now GenDigitsChar has the generation number in character form in a size 3 array
     
@@ -183,11 +122,11 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     
     // subtract 3 since using 7 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
     for(int i = 0; i < halfwayPoint - 3; i++){
-      pageArray[ROWS + 2][i + startingColumn] = "-";
+      pageArray[ROWS + 2][i + startingColumn] = '-';
     }
     //adds the generatino to the center of the bottom border
     pageArray[ROWS + 2][startingColumn + halfwayPoint -3] = 'G';
-    pageArray[ROWS + 2][startingColumn + halfwayPoint -2 = 'e';
+    pageArray[ROWS + 2][startingColumn + halfwayPoint -2] = 'e';
     pageArray[ROWS + 2][startingColumn + halfwayPoint -1] = 'n';
     pageArray[ROWS + 2][startingColumn + halfwayPoint] = ' ';
     pageArray[ROWS + 2][startingColumn + halfwayPoint +1] = GenDigitsChar[0];
@@ -213,7 +152,7 @@ void printPage(char pageArray[ROWS + 5][PAGEWIDTH]){
         cout << endl;
       }
       else{
-        cout pageArray[y][x];
+        cout << pageArray[y][x];
       }
     }
   }
