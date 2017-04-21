@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
+#define PAGEWIDTH 72
 #define ROWS 30
 #define COLUMNS 55
 
@@ -8,7 +9,6 @@ using namespace std;
 //prints everything but bottom border
 void printBoard(int board[ROWS][COLUMNS]) {
   
-  int pageWidth = 72;
   
   //prints top border
   cout << '+';
@@ -53,6 +53,10 @@ void printBoard(int board[ROWS][COLUMNS]) {
     }
   }
 }
+
+
+
+
 
 
 
@@ -214,11 +218,26 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
   }
 }
 
+
+
+
+
+
 //sets all values in board to 0
 void clearBoard(int board[ROWS][COLUMNS]){
   for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x < COLUMNS; ++x){
       board[y][x] = 0;
+    }
+  }
+}
+
+
+//sets all values in pageArray to ' '
+void clearPageArray(char pageArray[ROWS + 5][PAGEWIDTH]){
+  for (int y = 0; y < ROWS+5; ++y){
+    for(int x = 0; x < PAGEWIDTH; ++x){
+      pageArray[y][x] = ' ';
     }
   }
 }
@@ -462,6 +481,21 @@ void makeGliderGun(int board[ROWS][COLUMNS]){
 int main(){
   //Creates board of just zeros
   int board[ROWS][COLUMNS] = {0};
+  //creates the array that we will be printing out initializes every entry as null
+  char pageArray[ROWS + 5][PAGEWIDTH] = {0};
+  //use the clearPageArray function to make the page array all ' ' 
+  clearPageArray(pageArray);
+
+
+
+
+
+
+
+
+
+
+
 
 
   makeGlider(board);
