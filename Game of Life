@@ -1,8 +1,8 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#define ROWS 20
-#define COLUMNS 25
+#define ROWS 30
+#define COLUMNS 55
 
 
 //prints everything but bottom border
@@ -239,6 +239,20 @@ void runGenerations(int board[ROWS][COLUMNS], int numOfGenerations){
   // print out the starting board as generation 0
   cout << "Generation: " << generationsSoFar << endl;
   printBoard(board);
+  
+  //creates bottom border
+    int halfwayPoint = COLUMNS/2;
+    cout << '+';
+    // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and two for the number of generations
+    for(int i = 0; i < halfwayPoint - 3; i++){
+      cout << "-";
+    }
+    cout << "Gen " << setw(3) << generationsSoFar; 
+    for(int i = halfwayPoint + 3; i < COLUMNS-1; i++){
+      cout << '-';
+    }
+    cout << '+' << endl;
+    
   generationsSoFar++;
   
   bool areTheBoardsTheSame = true;
@@ -398,7 +412,7 @@ void makePulsar(int board[ROWS][COLUMNS]){
 }
 
 //Gosper Glider Gun
-void makeGliderGun(){
+void makeGliderGun(int board[ROWS][COLUMNS]){
   board[5][1] = 1;
   board[5][2] = 1;
   board[6][1] = 1;
@@ -458,7 +472,11 @@ int main(){
   
   makePulsar(board);
   runGenerations(board, 10);
-  clearBoard;
+  clearBoard(board);
+  
+  makeGliderGun(board);
+  runGenerations(board, 99);
+  clearBoard(board);
 
 
 
