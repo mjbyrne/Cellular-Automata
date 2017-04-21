@@ -185,18 +185,31 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
           GenDigitsChar[2] = '9';
       }
       
+      //now GenDigitsChar has the generation number in character form in a size 3 array
     
     
     
-    // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and two for the number of generations
+    // subtract 3 since using 6 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
     for(int i = 0; i < halfwayPoint - 3; i++){
       pageArray[ROWS + 2][i + startingColumn] = "-";
     }
-    cout << "Gen " << setw(3) << generationsSoFar; 
-    for(int i = halfwayPoint + 3; i < COLUMNS-1; i++){
-      cout << '-';
+    //adds the generatino to the center of the bottom border
+    pageArray[ROWS + 2][startingColumn + halfwayPoint -3] = 'G';
+    pageArray[ROWS + 2][startingColumn + halfwayPoint -2 = 'e';
+    pageArray[ROWS + 2][startingColumn + halfwayPoint -1] = 'n';
+    pageArray[ROWS + 2][startingColumn + halfwayPoint] = ' ';
+    pageArray[ROWS + 2][startingColumn + halfwayPoint +1] = GenDigitsChar[0];
+    pageArray[ROWS + 2][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
+    pageArray[ROWS + 2][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
+    
+    for(int = 0; i < halfwayPoint - 3; i++){
+      //adds second half of border after the gen number
+      if(i == halfwayPoint -4){
+        pageArray[ROWS +2][startingColumn + halfwayPoint + 4 + i] = '+';
+      }
+      else {
+        pageArray[ROWS +2][startingColumn + halfwayPoint + 4 + i] = '-';
     }
-    cout << '+' << endl;
   }
   
 }
