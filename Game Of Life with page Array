@@ -2,8 +2,8 @@
 #include <iomanip>
 using namespace std;
 #define PAGEWIDTH 72
-#define ROWS 30
-#define COLUMNS 55
+#define ROWS 10
+#define COLUMNS 10
 
 
 //adds the board to the pageArray
@@ -11,11 +11,11 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
   
   
   //adds top border
-  for(int i = 0; i < COLUMNS +2; i++){
+  for(int i = 0; i < COLUMNS +1; i++){
     pageArray[0][i + startingColumn] = '-';
   }
   pageArray[0][startingColumn] = '+';
-  pageArray[0][startingColumn + COLUMNS+2] = '+';
+  pageArray[0][startingColumn + COLUMNS+1] = '+';
   
   
   
@@ -23,17 +23,10 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
   for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x <= COLUMNS+2; ++x){
 
-      //creates left border    
-      if(x==0){
-        pageArray[y+1][x = startingColumn]= '|';
+      //creates left and right borders   
+      if(x==0 || x == COLUMNS +1){
+        pageArray[y+1][x + startingColumn]= '|';
       }
-      
-      
-      //creates right border
-      else if(x == COLUMNS+2){
-        pageArray[y+1][x + startingColumn] = '|';
-      }
-      
       
       // fills in the rest of the the columns, when x=1 actually looking at board column 0
       else {
@@ -42,10 +35,13 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
         }
         else {
         pageArray[y+1][x + startingColumn] = 'X';
+       /* cout << board[y][x-1] << "x:" << x <<  "y:" << y << endl;*/
         }
       }
     }
   }
+  
+  cout << pageArray[ROWS+1][COLUMNS+1] << endl;
   
     int halfwayPoint = COLUMNS/2;
     int GenDigits[3] ={0};
@@ -120,7 +116,7 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     
     
     // subtract 3 since using 7 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
-    for(int i = 0; i < COLUMNS +2; i++){
+    for(int i = 0; i < COLUMNS +1; i++){
     pageArray[ROWS + 1][i + startingColumn] = '-';
     }
   
@@ -133,7 +129,7 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     pageArray[ROWS + 1][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
     pageArray[ROWS + 1][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
     pageArray[ROWS + 1][startingColumn] = '+';
-    pageArray[ROWS + 1][startingColumn + COLUMNS+2] = '+';
+    pageArray[ROWS + 1][startingColumn + COLUMNS+1] = '+';
     for(int i = 0; i < halfwayPoint - 3; i++){
       //adds second half of border after the gen number
 
@@ -601,7 +597,7 @@ int main(){
 
 
   makeGlider(board);
-  runGenerations(board, pageArray, 12);
+  runGenerations(board, pageArray, 36);
   clearBoard(board);
 /*
   makeCheshireCat(board);
