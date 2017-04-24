@@ -2,8 +2,8 @@
 #include <iomanip>
 using namespace std;
 #define PAGEWIDTH 72
-#define ROWS 10
-#define COLUMNS 15
+#define ROWS 15
+#define COLUMNS 18
 //COLUMNS must not exceed PAGEWIDTH - 5
 
 
@@ -11,7 +11,7 @@ using namespace std;
 void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar){
   
   for (int y=0; y < ROWS +2; y++){
-    for(int x=0; x < ROWS +2; x++){
+    for(int x=0; x < COLUMNS +2; x++){
       //top or bottom border
       if(y==0 || y == ROWS +1){
         for(int i= 0; i< COLUMNS +2; i++){
@@ -22,9 +22,10 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
       }
       else {
         //creates left and right borders
-        if(x==0 || x== COLUMNS +1){
+        if(x==0 || x == COLUMNS +1){
           page[y][x + startingColumn] = '|';
-        }
+          }
+        
         else {
           if(board[y-1][x-1] ==0){
             page[y][x + startingColumn] = ' ';
@@ -107,140 +108,6 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
   
 }
 
-/*
-//adds the board to the page
-void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar) {
-  
-  
-  //adds top border
-  for(int i = 0; i < COLUMNS +1; i++){
-    page[0][i + startingColumn] = '-';
-  }
-  page[0][startingColumn] = '+';
-  page[0][startingColumn + COLUMNS+1] = '+';
-  
-  
-  
-  
-  for (int y = 0; y < ROWS; ++y){
-    for(int x = 0; x <= COLUMNS+2; ++x){
-
-      //creates left and right borders   
-      if(x==0 || x == COLUMNS +1){
-        page[y+1][x + startingColumn]= '|';
-      }
-      
-      // fills in the rest of the the columns, when x=1 actually looking at board column 0
-      else {
-        if(board[y][x-1] == 0){
-          page[y+1][x + startingColumn] = ' ';
-        }
-        else {
-        page[y+1][x + startingColumn] = 'X';
-        cout << board[y][x-1] << "x:" << x <<  "y:" << y << endl;
-        }
-      }
-    }
-  }
-  
-  cout << page[ROWS+1][COLUMNS+1] << endl;
-  
-    int halfwayPoint = COLUMNS/2;
-    int GenDigits[3] ={0};
-    
-    
-    
-    
-    //gets last number first so has to start in GenDigits[2] and go backwards
-    int digitStartingSpot = 2;
-    int generationsSoFarCopy = generationsSoFar;
-    int digit = 0;
-    
-    //puts the generation number in an array of size 3 by digit so we can convert to character for the character array
- 
-    for(int i = 0; i < 3; i++){
-      digit = generationsSoFarCopy%10;
-      generationsSoFarCopy = generationsSoFarCopy/10;
-      GenDigits[digitStartingSpot] = digit;
-      digitStartingSpot--;
-    }
-    
-    GenDigits[digitStartingSpot] = digit;
-    
-    char GenDigitsChar[3] = {0};
-    for(int z = 0; z<3; z++){
-      if (z == 0 && GenDigits[0] == 0){
-        GenDigitsChar[z] = ' ';
-      }
-      else if (z==1 && GenDigits[0] == 0 && GenDigits[1] == 0){
-        GenDigitsChar[z] = ' ';
-      }
-        
-      else{
-        if (GenDigits[z] == 0){
-          GenDigitsChar[z] = '0';
-        }
-        else if (GenDigits[z] == 1){
-          GenDigitsChar[z] = '1';
-        }
-        else if (GenDigits[z] == 2){
-          GenDigitsChar[z] = '2';
-        }
-        else if (GenDigits[z] == 3){
-          GenDigitsChar[z] = '3';
-        }
-        else if (GenDigits[z] == 4){
-          GenDigitsChar[z] = '4';
-        }
-        else if (GenDigits[z] == 5){
-          GenDigitsChar[z] = '5';
-        }
-        else if (GenDigits[z] == 6){
-          GenDigitsChar[z] = '6';
-        }
-        else if (GenDigits[z] == 7){
-          GenDigitsChar[z] = '7';
-        }
-        else if (GenDigits[z] == 8){
-          GenDigitsChar[z] = '8';
-        }
-        else {
-          GenDigitsChar[z] = '9';
-        }
-      }
-    }
-    
-      
-      
-      
-      //now GenDigitsChar has the generation number in character form in a size 3 array
-    
-    
-    
-    // subtract 3 since using 7 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
-    for(int i = 0; i < COLUMNS +1; i++){
-    page[ROWS + 1][i + startingColumn] = '-';
-    }
-  
-    //adds the generation to the center of the bottom border
-    page[ROWS + 1][startingColumn + halfwayPoint -3] = 'G';
-    page[ROWS + 1][startingColumn + halfwayPoint -2] = 'e';
-    page[ROWS + 1][startingColumn + halfwayPoint -1] = 'n';
-    page[ROWS + 1][startingColumn + halfwayPoint] = ' ';
-    page[ROWS + 1][startingColumn + halfwayPoint +1] = GenDigitsChar[0];
-    page[ROWS + 1][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
-    page[ROWS + 1][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
-    page[ROWS + 1][startingColumn] = '+';
-    page[ROWS + 1][startingColumn + COLUMNS+1] = '+';
-    for(int i = 0; i < halfwayPoint - 3; i++){
-      //adds second half of border after the gen number
-
-    }
-  
-  }
-  
-  */
-
 
 void printPage(char page[ROWS + 5][PAGEWIDTH]){
   for(int y = 0; y < ROWS +5; ++y){
@@ -254,9 +121,6 @@ void printPage(char page[ROWS + 5][PAGEWIDTH]){
     }
   }
 }
-
-
-
 
 
 
