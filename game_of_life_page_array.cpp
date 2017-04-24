@@ -306,9 +306,6 @@ void clearpage(char page[ROWS + 5][PAGEWIDTH]){
 }
 
 
-
-
-
 //iterates over multiple numOfGenerations
 void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int numOfGenerations){
   //create a secondary board and set it equal to the starting board
@@ -391,8 +388,13 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
       }
   }
   //have to print what is left on final page
-  printPage(page);
-  clearpage(page);
+  if(areTheBoardsTheSame){
+    clearpage(page);
+  }
+  else{
+    printPage(page);
+    clearpage(page);
+  }
 }
 
 //Glider
