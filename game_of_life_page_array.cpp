@@ -35,6 +35,74 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
       }
     }
   }
+  // The board has now been added to the page array
+  // The final step is to add the generation number to the bottom border
+  // we need to seperate the digits of the generation number and convert them to characters 
+  int GenDigits[3] ={0};
+  //we will be getting the ones place first so has to start in GenDigits[2] and go backwards
+  int digitStartingSpot = 2;
+  //using a copy so we don't lose the generationsSoFar that we need to keep using
+  int generationsSoFarCopy = generationsSoFar;
+  int digit = 0;
+  //puts the generation number in an array of size 3 by digit so we can convert to character for the character array
+  //so a limitation of this program is that it can only run up to 999 generations as it is now
+  for(int i = 0; i < 3; i++){
+    digit = generationsSoFarCopy%10;
+    generationsSoFarCopy = generationsSoFarCopy/10;
+    GenDigits[digitStartingSpot] = digit;
+    digitStartingSpot--;
+  }
+  GenDigits[digitStartingSpot] = digit;
+  //We now have the digits seperated into an integer array of size 3
+  //Next we will create a character array of size 3 and conver the digits to characters thats can be placed into page
+  char GenDigitsChar[3] = {0};
+  for(int z = 0; z<3; z++){
+    if (z == 0 && GenDigits[0] == 0){
+      GenDigitsChar[z] = ' ';
+    }
+    else if (z==1 && GenDigits[0] == 0 && GenDigits[1] == 0){
+      GenDigitsChar[z] = ' ';
+    }
+    else{
+      if (GenDigits[z] == 0){
+          GenDigitsChar[z] = '0';
+      }
+      else if (GenDigits[z] == 1){
+        GenDigitsChar[z] = '1';
+      }
+      else if (GenDigits[z] == 2){
+        GenDigitsChar[z] = '2';
+      }
+      else if (GenDigits[z] == 3){
+        GenDigitsChar[z] = '3';
+      }
+      else if (GenDigits[z] == 4){
+         GenDigitsChar[z] = '4';
+      }
+      else if (GenDigits[z] == 5){
+        GenDigitsChar[z] = '5';
+      }
+      else if (GenDigits[z] == 6){
+        GenDigitsChar[z] = '6';
+      }
+      else if (GenDigits[z] == 7){
+        GenDigitsChar[z] = '7';
+      }
+      else if (GenDigits[z] == 8){
+        GenDigitsChar[z] = '8';
+      }
+      else {
+        GenDigitsChar[z] = '9';
+      }
+    }
+  }
+  page[ROWS+1][startingColumn + (COLUMNS/2) -3] = 'G';
+  page[ROWS+1][startingColumn + (COLUMNS/2) -2] = 'e';
+  page[ROWS+1][startingColumn + (COLUMNS/2) -1] = 'n';
+  page[ROWS+1][startingColumn + (COLUMNS/2)] = GenDigitsChar[0];
+  page[ROWS+1][startingColumn + (COLUMNS/2) +1] = GenDigitsChar[1];
+  page[ROWS+1][startingColumn + (COLUMNS/2) +3] = GenDigitsChar[2];
+  
 }
 
 /*
