@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#define PAGEWIDTH 120
+#define PAGEWIDTH 85
 #define ROWS 10
 #define COLUMNS 10
 
@@ -436,9 +436,10 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
       printPage(page);
       clearpage(page);
       boardsOnPageSoFar = 0;
-      startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
+      startingColumn = 0;
       boardToPage(board, page, startingColumn, generationsSoFar);
       boardsOnPageSoFar = 1;
+      startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
     }
     
     //add board to page
