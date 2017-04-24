@@ -237,8 +237,6 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
           neighborXPos = x;
           neighbors[y][x] +=board[neighborYPos][neighborXPos];
         }
-        
-        
         // below and right
         if (neighborNumber == 7){
           if(y==ROWS-1){
@@ -281,11 +279,6 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
   }
 }
 
-
-
-
-
-
 //sets all values in board to 0
 void clearBoard(int board[ROWS][COLUMNS]){
   for (int y = 0; y < ROWS; ++y){
@@ -295,7 +288,6 @@ void clearBoard(int board[ROWS][COLUMNS]){
   }
 }
 
-
 //sets all values in page to ' '
 void clearpage(char page[ROWS + 5][PAGEWIDTH]){
   for (int y = 0; y < ROWS+5; ++y){
@@ -304,7 +296,6 @@ void clearpage(char page[ROWS + 5][PAGEWIDTH]){
     }
   }
 }
-
 
 //iterates over multiple numOfGenerations
 void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int numOfGenerations){
@@ -317,33 +308,23 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
   }
   //number of generations iterated so far
   int generationsSoFar = 0;
-  
   //number of boards on the page array
   int boardsOnPageSoFar = 0;
-  
   //number of full boards that can fit on one page, the +5 is because 2 are from the border and 3 will be the spaces in between boards
   int boardsPerPage = PAGEWIDTH / (COLUMNS+5);
-  
   //the startingColumn will be the width of one board times the number of boards already placed
   int startingColumn = boardsOnPageSoFar * (COLUMNS + 5); 
-  
-  
-  
-  
   //add the starting board to page
   boardToPage(board, page, startingColumn, generationsSoFar);
   generationsSoFar ++; 
   boardsOnPageSoFar ++;
   startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
-  
   //flag to be used to see if the board changes
   bool areTheBoardsTheSame = true;
-    
     //start of loops for all generations
   for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
     //advance one generation
     nextGeneration(board);
-    
     //check to see if the current generation has changed at all
     areTheBoardsTheSame = true;
     for (int y = 0; y < ROWS; ++y){
@@ -353,15 +334,12 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
         }
       }
     }
-    
-    
     if (areTheBoardsTheSame == true){
       printPage(page);
       cout << "This board has reached a static image." << endl;
       cout << "All future generations are identical." << endl << endl << endl << endl;
       break;
     }
-    
     //if the page is full, print it, clear it, add the board to the page, and set counter of boards to 1
     else if (boardsOnPageSoFar == boardsPerPage) {
       printPage(page);
@@ -372,20 +350,18 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
       boardsOnPageSoFar = 1;
       startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
     }
-    
     //add board to page
     else {
       boardToPage(board, page, startingColumn, generationsSoFar);
       boardsOnPageSoFar++;
       startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
     }
-    
     //sets the last gen board to current board
     for (int y = 0; y < ROWS; ++y){
       for(int x = 0; x < COLUMNS; ++x){
         lastGenBoard[y][x] = board[y][x];
-        }
       }
+    }
   }
   //have to print what is left on final page
   if(areTheBoardsTheSame){
@@ -405,7 +381,6 @@ void makeGlider(int board[ROWS][COLUMNS]){
     board[2][1] = 1;
     board[2][2] = 1;
 }  
-
 
 //Cheshire cat
 void makeCheshireCat(int board[ROWS][COLUMNS]){
@@ -429,6 +404,7 @@ void makeCheshireCat(int board[ROWS][COLUMNS]){
   board[7][8] = 1;
 }
 
+//Pulsar
 void makePulsar(int board[ROWS][COLUMNS]){
   board[1][3] = 1;
   board[1][4] = 1;
@@ -519,8 +495,6 @@ void makeGliderGun(int board[ROWS][COLUMNS]){
   board[3][36] = 1;
   board[4][36] = 1;
 }
-
-
 
 
 int main(){
