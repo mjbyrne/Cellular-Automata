@@ -1,15 +1,13 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#define PAGEWIDTH 150
-#define ROWS 20
-#define COLUMNS 50
+#define PAGEWIDTH 72
+#define ROWS 25
+#define COLUMNS 45
 //COLUMNS must not exceed PAGEWIDTH - 5
-
 
 //adds board to page page
 void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar){
-  
   for (int y=0; y < ROWS +2; y++){
     for(int x=0; x < COLUMNS +2; x++){
       //top or bottom border
@@ -108,7 +106,6 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
   
 }
 
-
 void printPage(char page[ROWS + 5][PAGEWIDTH]){
   for(int y = 0; y < ROWS +5; ++y){
     for(int x = 0; x < PAGEWIDTH; ++x){
@@ -122,13 +119,10 @@ void printPage(char page[ROWS + 5][PAGEWIDTH]){
   }
 }
 
-
-
 void nextGeneration(int board[ROWS][COLUMNS]) {
   int neighbors[ROWS][COLUMNS] = {0};
   int neighborXPos = 0;
   int neighborYPos = 0;
-  
   //Create new board called neighbors and set the value of each space equal to the number of alive neighbors it has
   for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x < COLUMNS; ++x){
@@ -149,7 +143,6 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
           }
           neighbors[y][x] +=board[neighborYPos][neighborXPos];
         }
-        
         //above  
         if (neighborNumber == 1){
           if(y==0){
@@ -161,7 +154,6 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
           neighborXPos = x;
           neighbors[y][x] +=board[neighborYPos][neighborXPos];
         }
-        
         //above and right
         if (neighborNumber == 2){
           if(y==0){
@@ -178,8 +170,6 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
           }
           neighbors[y][x] += board[neighborYPos][neighborXPos];
         }
-        
-        
         // left
         if (neighborNumber == 3){
           if(x==0){
@@ -189,10 +179,8 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
             neighborXPos = x-1;
           }
           neighborYPos = y;
-          
           neighbors[y][x] += board[neighborYPos][neighborXPos];
         }
-        
         // right
         if (neighborNumber == 4){
           if(x==COLUMNS-1){
@@ -201,13 +189,9 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
           else {
             neighborXPos = x+1;
           }
-          
           neighborYPos = y;
-          
           neighbors[y][x] += board[neighborYPos][neighborXPos];
-          
         }
-        
         //below and left
         if (neighborNumber == 5){
           if (y==ROWS-1){
@@ -223,9 +207,7 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
             neighborXPos = x-1;
           }
           neighbors[y][x] += board[neighborYPos][neighborXPos];
-          
         }
-        
         // below
         if (neighborNumber == 6){
           if(y==ROWS-1){
@@ -253,7 +235,6 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
           }
           neighbors[y][x] +=board[neighborYPos][neighborXPos];
         }
-        
       }
     }
   }
@@ -496,7 +477,6 @@ void makeGliderGun(int board[ROWS][COLUMNS]){
   board[4][36] = 1;
 }
 
-
 int main(){
   //Creates board of just zeros
   int board[ROWS][COLUMNS] = {0};
@@ -505,31 +485,24 @@ int main(){
   //use the clearpage function to make the page array all ' ' 
   clearpage(page);
 
+ //recommend setting ROWS to 9 and COLUMNS to 9 
   makeGlider(board);
-  runGenerations(board, page, 36);
+  runGenerations(board, page, 48);
   clearBoard(board);
-
+  
+  //recommend setting ROWS to 11 and COLUMNS to 15
   makeCheshireCat(board);
   runGenerations(board, page, 10);
   clearBoard(board);
-  /*
+  
+  //recommend setting ROWS to 16 and COLUMNS to 16
   makePulsar(board);
   runGenerations(board, page, 10);
   clearBoard(board);
   
-  
-  // make sure the board is sufficiently large enough for the glider gun
+  //recommend setting ROWS to 25 and COLUMNS to 45
   makeGliderGun(board);
-  runGenerations(board, page, 55);
+  runGenerations(board, page, 67);
   clearBoard(board);
-  */
-}     
-
-//http://www.cplusplus.com/doc/tutorial/files/ look here to figure out text file
-
-/*  RULES
-    If cell is alive and has less than 2 alive neighbors, the cell dies.
-    If cell is alive and has 2 or 3 live neighbors the cell stays alive.
-    If cell is alive and cell has 4 or greater alive neighbors the cell dies.
-    If dead cell has exactly 3 neighbors, the cell becomes alive.
-*/
+  
+}
