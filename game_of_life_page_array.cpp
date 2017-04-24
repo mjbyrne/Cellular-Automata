@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#define PAGEWIDTH 72
+#define PAGEWIDTH 120
 #define ROWS 10
 #define COLUMNS 10
 
@@ -12,7 +12,7 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
   for (int y=0; y < ROWS +2; y++){
     for(int x=0; x < ROWS +2; x++){
       //top or bottom border
-      if(y==0 || y++ ROWS +1){
+      if(y==0 || y == ROWS +1){
         for(int i= 0; i< COLUMNS +2; i++){
           page[y][i+startingColumn] = '-';
         }
@@ -22,14 +22,14 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
       else {
         //creates left and right borders
         if(x==0 || x== COLUMNS +1){
-          page[y][x] = '|';
+          page[y][x + startingColumn] = '|';
         }
         else {
           if(board[y-1][x-1] ==0){
             page[y][x + startingColumn] = ' ';
           }
           else {
-            page[y][x] = 'X';
+            page[y][x + startingColumn] = 'X';
           }
         }
       }
