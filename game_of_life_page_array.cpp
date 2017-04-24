@@ -1,9 +1,9 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#define PAGEWIDTH 72
-#define ROWS 15
-#define COLUMNS 18
+#define PAGEWIDTH 150
+#define ROWS 20
+#define COLUMNS 50
 //COLUMNS must not exceed PAGEWIDTH - 5
 
 
@@ -393,15 +393,7 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
   //have to print what is left on final page
   printPage(page);
   clearpage(page);
-  
-  
-  
 }
-
-
-
-
-
 
 //Glider
 void makeGlider(int board[ROWS][COLUMNS]){
@@ -417,23 +409,18 @@ void makeGlider(int board[ROWS][COLUMNS]){
 void makeCheshireCat(int board[ROWS][COLUMNS]){
   board[2][5] = 1;
   board[2][8] = 1;
-  
   board[3][5] = 1;
   board[3][6] = 1;
   board[3][7] = 1;
   board[3][8] = 1;
-  
   board[5][6] = 1;
   board[5][7] = 1;
-  
   board[4][4] = 1;
   board[5][4] = 1;
   board[6][4] = 1;
-  
   board[4][9] = 1;
   board[5][9] = 1;
   board[6][9] = 1;
-  
   board[7][5] = 1;
   board[7][6] = 1;
   board[7][7] = 1;
@@ -444,63 +431,48 @@ void makePulsar(int board[ROWS][COLUMNS]){
   board[1][3] = 1;
   board[1][4] = 1;
   board[1][5] = 1;
-  
   board[1][9] = 1;
   board[1][10] = 1;
   board[1][11] = 1;
- 
   board[3][1] = 1;
   board[4][1] = 1;
   board[5][1] = 1;
-  
   board[3][6] = 1;
   board[4][6] = 1;
   board[5][6] = 1;
- 
   board[3][8] = 1;
   board[4][8] = 1;
   board[5][8] = 1;
-  
   board[3][13] = 1;
   board[4][13] = 1;
   board[5][13] = 1;
-  
   board[6][3] = 1;
   board[6][4] = 1;
   board[6][5] = 1;
-  
   board[6][9] = 1;
   board[6][10] = 1;
   board[6][11] = 1;
-  
   board[8][3] = 1;
   board[8][4] = 1;
   board[8][5] = 1;
-  
   board[8][9] = 1;
   board[8][10] = 1;
   board[8][11] = 1;
-  
   board[9][1] = 1;
   board[10][1] = 1;
   board[11][1] = 1;
-  
   board[9][6] = 1;
   board[10][6] = 1;
   board[11][6] = 1;
- 
   board[9][8] = 1;
   board[10][8] = 1;
   board[11][8] = 1;
-  
   board[9][13] = 1;
   board[10][13] = 1;
   board[11][13] = 1;
-  
   board[13][3] = 1;
   board[13][4] = 1;
   board[13][5] = 1;
-  
   board[13][9] = 1;
   board[13][10] = 1;
   board[13][11] = 1;
@@ -512,7 +484,6 @@ void makeGliderGun(int board[ROWS][COLUMNS]){
   board[5][2] = 1;
   board[6][1] = 1;
   board[6][2] = 1;
-  
   board[5][11] = 1;
   board[6][11] = 1;
   board[7][11] = 1;
@@ -529,7 +500,6 @@ void makeGliderGun(int board[ROWS][COLUMNS]){
   board[6][17] = 1;
   board[7][17] = 1;
   board[6][18] = 1;
-  
   board[3][21] = 1;
   board[4][21] = 1;
   board[5][21] = 1;
@@ -542,7 +512,6 @@ void makeGliderGun(int board[ROWS][COLUMNS]){
   board[2][25] = 1;
   board[6][25] = 1;
   board[7][25] = 1;
-  
   board[3][35] = 1;
   board[4][35] = 1;
   board[3][36] = 1;
@@ -560,26 +529,14 @@ int main(){
   //use the clearpage function to make the page array all ' ' 
   clearpage(page);
 
-
-
-
-
-
-
-
-
-
-
-
-
   makeGlider(board);
   runGenerations(board, page, 36);
   clearBoard(board);
-/*
+
   makeCheshireCat(board);
   runGenerations(board, page, 10);
   clearBoard(board);
-  
+  /*
   makePulsar(board);
   runGenerations(board, page, 10);
   clearBoard(board);
@@ -589,29 +546,10 @@ int main(){
   makeGliderGun(board);
   runGenerations(board, page, 55);
   clearBoard(board);
-*/
-
-
-
-
-  
+  */
 }     
 
 //http://www.cplusplus.com/doc/tutorial/files/ look here to figure out text file
-
-
-/* how to get each digit in a number
-  int a = 123;
-  int digit = 0;
-  
-  while(a>=10){
-    digit = a%10;
-    a = a/10;
-    cout << digit << endl;
-  }
-  digit = a;
-  cout << digit << endl;  
-*/
 
 /*  RULES
     If cell is alive and has less than 2 alive neighbors, the cell dies.
