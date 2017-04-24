@@ -6,16 +6,48 @@ using namespace std;
 #define COLUMNS 10
 
 
-//adds the board to the pageArray
-void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar) {
+//adds board to page page
+void boardToPage(page[ROWS + 5][PAGEWIDTH], board[ROWS][COLUMNS], boardsOnPageSoFar){
+  
+  for (int y=0; y < ROWS +2; y++){
+    for(int x=0; x < ROWS +2; x++){
+      //top or bottom border
+      if(y==0 || y++ ROWS +1){
+        for(int i= 0; i< COLUMNS +2; i++){
+          page[y][i+startingColumn] = '-';
+        }
+        page[y][startingColumn] = '+';
+        page[y][startingColumn + COLUMNS +1] = '+';
+      }
+      else {
+        //creates left and right borders
+        if(x==0 || x== COLUMNS +1){
+          page[y][x] = '|';
+        }
+        else {
+          if(board[y-1][x-1] ==0){
+            page[y][x + startingColumn] = ' ';
+          }
+          else {
+            page[y][x] = 'X';
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+//adds the board to the page
+void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar) {
   
   
   //adds top border
   for(int i = 0; i < COLUMNS +1; i++){
-    pageArray[0][i + startingColumn] = '-';
+    page[0][i + startingColumn] = '-';
   }
-  pageArray[0][startingColumn] = '+';
-  pageArray[0][startingColumn + COLUMNS+1] = '+';
+  page[0][startingColumn] = '+';
+  page[0][startingColumn + COLUMNS+1] = '+';
   
   
   
@@ -25,23 +57,23 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
 
       //creates left and right borders   
       if(x==0 || x == COLUMNS +1){
-        pageArray[y+1][x + startingColumn]= '|';
+        page[y+1][x + startingColumn]= '|';
       }
       
       // fills in the rest of the the columns, when x=1 actually looking at board column 0
       else {
         if(board[y][x-1] == 0){
-          pageArray[y+1][x + startingColumn] = ' ';
+          page[y+1][x + startingColumn] = ' ';
         }
         else {
-        pageArray[y+1][x + startingColumn] = 'X';
-       /* cout << board[y][x-1] << "x:" << x <<  "y:" << y << endl;*/
+        page[y+1][x + startingColumn] = 'X';
+        cout << board[y][x-1] << "x:" << x <<  "y:" << y << endl;
         }
       }
     }
   }
   
-  cout << pageArray[ROWS+1][COLUMNS+1] << endl;
+  cout << page[ROWS+1][COLUMNS+1] << endl;
   
     int halfwayPoint = COLUMNS/2;
     int GenDigits[3] ={0};
@@ -117,35 +149,37 @@ void boardToPage(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], 
     
     // subtract 3 since using 7 total slots, 3 for "Gen" one for a space, and 3 for the number of generations
     for(int i = 0; i < COLUMNS +1; i++){
-    pageArray[ROWS + 1][i + startingColumn] = '-';
+    page[ROWS + 1][i + startingColumn] = '-';
     }
   
     //adds the generation to the center of the bottom border
-    pageArray[ROWS + 1][startingColumn + halfwayPoint -3] = 'G';
-    pageArray[ROWS + 1][startingColumn + halfwayPoint -2] = 'e';
-    pageArray[ROWS + 1][startingColumn + halfwayPoint -1] = 'n';
-    pageArray[ROWS + 1][startingColumn + halfwayPoint] = ' ';
-    pageArray[ROWS + 1][startingColumn + halfwayPoint +1] = GenDigitsChar[0];
-    pageArray[ROWS + 1][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
-    pageArray[ROWS + 1][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
-    pageArray[ROWS + 1][startingColumn] = '+';
-    pageArray[ROWS + 1][startingColumn + COLUMNS+1] = '+';
+    page[ROWS + 1][startingColumn + halfwayPoint -3] = 'G';
+    page[ROWS + 1][startingColumn + halfwayPoint -2] = 'e';
+    page[ROWS + 1][startingColumn + halfwayPoint -1] = 'n';
+    page[ROWS + 1][startingColumn + halfwayPoint] = ' ';
+    page[ROWS + 1][startingColumn + halfwayPoint +1] = GenDigitsChar[0];
+    page[ROWS + 1][startingColumn + halfwayPoint +2] = GenDigitsChar[1];
+    page[ROWS + 1][startingColumn + halfwayPoint +3] = GenDigitsChar[2];
+    page[ROWS + 1][startingColumn] = '+';
+    page[ROWS + 1][startingColumn + COLUMNS+1] = '+';
     for(int i = 0; i < halfwayPoint - 3; i++){
       //adds second half of border after the gen number
 
     }
   
   }
+  
+  */
 
 
-void printPage(char pageArray[ROWS + 5][PAGEWIDTH]){
+void printPage(char page[ROWS + 5][PAGEWIDTH]){
   for(int y = 0; y < ROWS +5; ++y){
     for(int x = 0; x < PAGEWIDTH; ++x){
       if(x == PAGEWIDTH -1){
         cout << endl;
       }
       else{
-        cout << pageArray[y][x];
+        cout << page[y][x];
       }
     }
   }
@@ -328,11 +362,11 @@ void clearBoard(int board[ROWS][COLUMNS]){
 }
 
 
-//sets all values in pageArray to ' '
-void clearPageArray(char pageArray[ROWS + 5][PAGEWIDTH]){
+//sets all values in page to ' '
+void clearpage(char page[ROWS + 5][PAGEWIDTH]){
   for (int y = 0; y < ROWS+5; ++y){
     for(int x = 0; x < PAGEWIDTH; ++x){
-      pageArray[y][x] = ' ';
+      page[y][x] = ' ';
     }
   }
 }
@@ -342,7 +376,7 @@ void clearPageArray(char pageArray[ROWS + 5][PAGEWIDTH]){
 
 
 //iterates over multiple numOfGenerations
-void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH], int numOfGenerations){
+void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int numOfGenerations){
   //create a secondary board and set it equal to the starting board
   int lastGenBoard[ROWS][COLUMNS] = {0};
   for (int y = 0; y < ROWS; ++y){
@@ -365,8 +399,8 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
   
   
   
-  //add the starting board to pageArray
-  boardToPage(board, pageArray, startingColumn, generationsSoFar);
+  //add the starting board to page
+  boardToPage(board, page, startingColumn, generationsSoFar);
   generationsSoFar ++; 
   boardsOnPageSoFar ++; 
   
@@ -389,7 +423,7 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
     
     
     if (areTheBoardsTheSame == true){
-      printPage(pageArray);
+      printPage(page);
       cout << "This board has reached a static image." << endl;
       cout << "All future generations are identical." << endl << endl << endl << endl;
       break;
@@ -397,15 +431,15 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
     
     //if the page is full, print it, clear it, add the board to the page, and set counter of boards to 1
     else if (boardsOnPageSoFar == boardsPerPage) {
-      printPage(pageArray);
-      clearPageArray(pageArray);
-      boardToPage(board, pageArray, startingColumn, generationsSoFar);
+      printPage(page);
+      clearpage(page);
+      boardToPage(board, page, startingColumn, generationsSoFar);
       boardsOnPageSoFar = 1;
     }
     
     //add board to page
     else {
-      boardToPage(board, pageArray, startingColumn, generationsSoFar);
+      boardToPage(board, page, startingColumn, generationsSoFar);
       boardsOnPageSoFar++;
     }
     
@@ -417,8 +451,8 @@ void runGenerations(int board[ROWS][COLUMNS], char pageArray[ROWS + 5][PAGEWIDTH
       }
   }
   //have to print what is left on final page
-  printPage(pageArray);
-  clearPageArray(pageArray);
+  printPage(page);
+  clearpage(page);
   
 }
 
@@ -580,9 +614,9 @@ int main(){
   //Creates board of just zeros
   int board[ROWS][COLUMNS] = {0};
   //creates the array that we will be printing out initializes every entry as null
-  char pageArray[ROWS + 5][PAGEWIDTH] = {0};
-  //use the clearPageArray function to make the page array all ' ' 
-  clearPageArray(pageArray);
+  char page[ROWS + 5][PAGEWIDTH] = {0};
+  //use the clearpage function to make the page array all ' ' 
+  clearpage(page);
 
 
 
@@ -597,21 +631,21 @@ int main(){
 
 
   makeGlider(board);
-  runGenerations(board, pageArray, 36);
+  runGenerations(board, page, 36);
   clearBoard(board);
 /*
   makeCheshireCat(board);
-  runGenerations(board, pageArray, 10);
+  runGenerations(board, page, 10);
   clearBoard(board);
   
   makePulsar(board);
-  runGenerations(board, pageArray, 10);
+  runGenerations(board, page, 10);
   clearBoard(board);
   
   
   // make sure the board is sufficiently large enough for the glider gun
   makeGliderGun(board);
-  runGenerations(board, pageArray, 55);
+  runGenerations(board, page, 55);
   clearBoard(board);
 */
 
