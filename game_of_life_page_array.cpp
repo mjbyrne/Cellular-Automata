@@ -7,7 +7,7 @@ using namespace std;
 
 
 //adds board to page page
-void boardToPage(page[ROWS + 5][PAGEWIDTH], board[ROWS][COLUMNS], boardsOnPageSoFar){
+void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar){
   
   for (int y=0; y < ROWS +2; y++){
     for(int x=0; x < ROWS +2; x++){
@@ -402,11 +402,13 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
   //add the starting board to page
   boardToPage(board, page, startingColumn, generationsSoFar);
   generationsSoFar ++; 
-  boardsOnPageSoFar ++; 
+  boardsOnPageSoFar ++;
+  startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
   
   //flag to be used to see if the board changes
   bool areTheBoardsTheSame = true;
     
+    //start of loops for all generations
   for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
     //advance one generation
     nextGeneration(board);
@@ -433,6 +435,8 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
     else if (boardsOnPageSoFar == boardsPerPage) {
       printPage(page);
       clearpage(page);
+      boardsOnPageSoFar = 0;
+      startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
       boardToPage(board, page, startingColumn, generationsSoFar);
       boardsOnPageSoFar = 1;
     }
@@ -441,6 +445,7 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
     else {
       boardToPage(board, page, startingColumn, generationsSoFar);
       boardsOnPageSoFar++;
+      startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
     }
     
     //sets the last gen board to current board
@@ -453,6 +458,8 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
   //have to print what is left on final page
   printPage(page);
   clearpage(page);
+  
+  
   
 }
 
