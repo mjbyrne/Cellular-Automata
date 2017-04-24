@@ -1,9 +1,10 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#define PAGEWIDTH 85
+#define PAGEWIDTH 72
 #define ROWS 10
-#define COLUMNS 10
+#define COLUMNS 15
+//COLUMNS must not exceed PAGEWIDTH - 5
 
 
 //adds board to page page
@@ -35,6 +36,7 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
       }
     }
   }
+  
   // The board has now been added to the page array
   // The final step is to add the generation number to the bottom border
   // we need to seperate the digits of the generation number and convert them to characters 
@@ -101,7 +103,7 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
   page[ROWS+1][startingColumn + (COLUMNS/2) -1] = 'n';
   page[ROWS+1][startingColumn + (COLUMNS/2)] = GenDigitsChar[0];
   page[ROWS+1][startingColumn + (COLUMNS/2) +1] = GenDigitsChar[1];
-  page[ROWS+1][startingColumn + (COLUMNS/2) +3] = GenDigitsChar[2];
+  page[ROWS+1][startingColumn + (COLUMNS/2) +2] = GenDigitsChar[2];
   
 }
 
