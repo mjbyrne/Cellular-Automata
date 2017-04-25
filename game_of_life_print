@@ -1,9 +1,13 @@
+//Change the file path to whatever you want
+#define FILENAME "E:gameOfLifePrintout.txt" 
 #include <iostream>
 #include <fstream>
 using namespace std;
+//Set the page width to however wide you want to print. 
 #define PAGEWIDTH 72
 #define ROWS 25
 #define COLUMNS 45
+
 //COLUMNS must not exceed PAGEWIDTH - 5
 
 
@@ -226,7 +230,6 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
     GenDigits[digitStartingSpot] = digit;
     digitStartingSpot--;
   }
-  GenDigits[digitStartingSpot] = digit;
   //We now have the digits seperated into an integer array of size 3
   //Next we will create a character array of size 3 and conver the digits to characters thats can be placed into page
   char GenDigitsChar[3] = {0};
@@ -489,7 +492,7 @@ int main(){
   
   //initializes the text file for output
   ofstream gamePrintout;
-  gamePrintout.open("gameOfLifeProgramResult");
+  gamePrintout.open(FILENAME);
 
  //recommend setting ROWS to 9 and COLUMNS to 9 
   makeGlider(board);
