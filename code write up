@@ -1,6 +1,8 @@
 Michael Byrne								     CSC 491
 					Game of Life
 
+//Change the file path to whatever you want
+#define FILENAME “E:gameOfLifePrintout.txt”
 #include <iostream>
 #include <fstream>
 using namespace std;
@@ -9,7 +11,7 @@ using namespace std;
 #define COLUMNS 45
 //COLUMNS must not exceed PAGEWIDTH - 5
 
-This is the begining of the code. The #define was used for the width of the page that will be printed. This should be set to the total number of characters that can fit on a line in the word document viewer that is being used. The Rows and Columns also use #define so they can be changed depending on the size of the boards to be used. It is recommended to comment out the programs in main that you don't want to run at a certain board dimension and do them later with the dimensions you want. If COLUMNS is larger than PAGEWIDTH - 5 then the board will be bigger than the page it is going to be placed on and will not work. 
+This is the beginning of the code. The #define was used for the width of the page that will be printed. This should be set to the total number of characters that can fit on a line in the word document viewer that is being used. The Rows and Columns also use #define so they can be changed depending on the size of the boards to be used. It is recommended to comment out the programs in main that you don't want to run at a certain board dimension and do them later with the dimensions you want. If COLUMNS is larger than PAGEWIDTH - 5 then the board will be bigger than the page it is going to be placed on and will not work. 
 
 
 //sets all values in board to 0
@@ -33,7 +35,7 @@ void clearpage(char page[ROWS + 5][PAGEWIDTH]){
   }
 }
 
-The clearPage function sets all values in the page array to spaces. This makes it so we can add new boards to the page array by just setting the value at the indices to whatever the character we want. Since the rest will be blank we wont have to worry about them. 
+The clearPage function sets all values in the page array to spaces. This makes it so we can add new boards to the page array by just setting the value at the indices to whatever the character we want. Since the rest will be blank we won’t have to worry about them. 
 
 
 //prints the page array
@@ -69,7 +71,7 @@ void printPage(char page[ROWS + 5][PAGEWIDTH){
 Note that it does not have the file object passed to it. 
 
 
-This next function, nextGeneration, is the driving force in this whole program. It is what impliments the rules of Conway's Game of Life to the board passed to it and overwrites that board with the next generation. First a new array called neighbors is initialized with the same number of rows and columns as the board array. It is initialzed to have all values of 0. Next, neighborXPos and neighborYPos are initialized. They will hold the coordinates of the values to be viewed in the board array. That is to say that as the program goes through the 8 neighbors for each cell in board, the neighborXPos and neighborYPos holds the position of each neighbor as it goes through each one at a time. 
+This next function, nextGeneration, is the driving force in this whole program. It is what implements the rules of Conway's Game of Life to the board passed to it and overwrites that board with the next generation. First a new array called neighbors is initialized with the same number of rows and columns as the board array. It is initialized to have all values of 0. Next, neighborXPos and neighborYPos are initialized. They will hold the coordinates of the values to be viewed in the board array. That is to say that as the program goes through the 8 neighbors for each cell in board, the neighborXPos and neighborYPos holds the position of each neighbor as it goes through each one at a time. 
 
 //takes the board given and overwrites it with the next generation board
 void nextGeneration(int board[ROWS][COLUMNS]) {
@@ -191,7 +193,7 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
       }
     }
   }
-The two outer most for loops makes it so that the function iterates over each cell in board. The third for loop goes through each of the  8 neighbors. The neighbors are labelled in the comments as "above and left", "above", "right", ect. For each neighbor the top to bottom and side to side adjacencies are accounted for with if statements. For example, for the first neighbor which is above and to the left, if the cell that is being looked at in the board array is [0][x], the top row of the board, then the row that it looks at for this neighbor is ROWS-1 which is the bottom most row. Likewise, if it is in the leftmost column, board[y][0], then it looks at the rightmost column, board [y][COLUMNS -1], for the neighbor. All of the appropiate boundry conditions are checked for each of the rest of the neighbors. Once the neighborXPos and neighborYPos are determined, the value of board[neighborYPos][neighborXPos] is just added to neighbors[y][x]. This can be done since an alive cell has a value of 1 and a dead cell has a value of 0. Thus the sum of all the values at the neighbor positions will simply be the total number of alive neighbors that cell has.  Now we have an array called neighbors that for each neighbors[y][x], has the exact amount of alive neighbors for the corresponding board[y][x] cell. 
+The two outer most for loops makes it so that the function iterates over each cell in board. The third for loop goes through each of the 8 neighbors. The neighbors are labelled in the comments as "above and left", "above", "right", ect. For each neighbor the top to bottom and side to side adjacencies are accounted for with if statements. For example, for the first neighbor which is above and to the left, if the cell that is being looked at in the board array is [0][x], the top row of the board, then the row that it looks at for this neighbor is ROWS-1 which is the bottom most row. Likewise, if it is in the leftmost column, board[y][0], then it looks at the rightmost column, board [y][COLUMNS -1], for the neighbor. All of the appropriate boundary conditions are checked for each of the rest of the neighbors. Once the neighborXPos and neighborYPos are determined, the value of board[neighborYPos][neighborXPos] is just added to neighbors[y][x]. This can be done since an alive cell has a value of 1 and a dead cell has a value of 0. Thus the sum of all the values at the neighbor positions will simply be the total number of alive neighbors that cell has.  Now we have an array called neighbors that for each neighbors[y][x], has the exact amount of alive neighbors for the corresponding board[y][x] cell. 
 
   for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x <= COLUMNS; ++x){
@@ -213,7 +215,7 @@ The two outer most for loops makes it so that the function iterates over each ce
     }
   }
 }
-This part of the function goes through the neighbors array and board array and applies the rules of the game of life to the cells in board. This overwrites the cells in the board array as it goes through them but that won't effect the other cells since the neighbors array holds all the information we need about each individual cell in its coressponding cell. This is how the function can apply the next generation to the board all at once. 
+This part of the function goes through the neighbors array and board array and applies the rules of the game of life to the cells in board. This overwrites the cells in the board array as it goes through them but that won't affect the other cells since the neighbors array holds all the information we need about each individual cell in its corresponding cell. This is how the function can apply the next generation to the board all at once. 
 
 
 The next function adds the board passed to it to the page array that will eventually be printed. This is done so multiple boards can be printed side by side if they are small enough. 
@@ -320,7 +322,7 @@ This next part of the function is all to add the generation number to the bottom
   page[ROWS+1][startingColumn + (COLUMNS/2) +2] = GenDigitsChar[2];
 }
 
-Since the page array is a character array the generationsSoFar that was passed to the function must be seperated by its digits and then those digits must be converted from integers to characters. To seperate the digits it is a simple matter of using the modulus function to get the right most digit. Since we're counting the generations in decimal, mod 10 of the generationsSoFarCopy gives the ones digits. A copy is used such that we don't effect the generationsSoFar that will be used later. That ones digit gets added to the corresponding ones place in the GenDigits array. From there the generationsSoFarCopy is divided by 10 using integer division, effectivly chopping off the right most digit. This process is then repeated for the what would be the 10's and 100's place. As the program is, it can only handle doing up to 999 generations because the array size is hard coded as 3. This was a design choice because doing 1000+ generations was determined to be unessicary for the scope of this program. This could be easily changed however. Next a corresponding character array is made called GenDigitsChar and is initialized to have all space characters. Finally it is just matter of going through each GenDigit index and comparing it to 0-9 until it hits the one it's equal to. That then sets it to the corresponding character. From here 'G''e''n' is added to the bottom border, and then the final characters that is the number of the current generation. Note that the spaces are maintained in the 10's and 100's spots instead of a leading 0, thus "Gen   3" is added to the border and not "Gen003". 
+Since the page array is a character array the generationsSoFar that was passed to the function must be separated by its digits and then those digits must be converted from integers to characters. To separate the digits it is a simple matter of using the modulus function to get the right most digit. Since we're counting the generations in decimal, mod 10 of the generationsSoFarCopy gives the ones digits. A copy is used such that we don't effect the generationsSoFar that will be used later. That ones digit gets added to the corresponding ones place in the GenDigits array. From there the generationsSoFarCopy is divided by 10 using integer division, effectivly chopping off the right most digit. This process is then repeated for what would be the 10's and 100's place. As the program is, it can only handle doing up to 999 generations because the array size is hard coded as 3. This was a design choice because doing 1000+ generations was determined to be unessicary for the scope of this program. This could be easily changed however. Next a corresponding character array is made called GenDigitsChar and is initialized to have all space characters. Finally it is just matter of going through each GenDigit index and comparing it to 0-9 until it hits the one it's equal to. That then sets it to the corresponding character. From here 'G''e''n' is added to the bottom border, and then the final characters that is the number of the current generation. Note that the spaces are maintained in the 10's and 100's spots instead of a leading 0, thus "Gen   3" is added to the border and not "Gen003". 
 
 
 So far we have have a function to create the next generation board and a function to put that board onto the page array. Now we want a function that will do that over however many generations we want to run through. That's where this next and final function comes in. 
@@ -351,7 +353,7 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
   //flag to be used to see if the board changes
   bool areTheBoardsTheSame = true;
 
-This part of the function initializes all the variables we will need as well as adds generation 0 to the board. A special condition we want to check for is if a board reaches a steady state. We do not want to output dozens or even hundreds of the same board if it is not changing between generations. That is wdhy we create a lastGenBoard and set it equal to the first board. From here on out after we run nextGeneration on a board, we can then compare that to the lastGenBoard. If they are the same, all future generations will be the same, and thus we can skip printing all future generations and output a message that a steady state has been reached. 
+This part of the function initializes all the variables we will need as well as adds generation 0 to the board. A special condition we want to check for is if a board reaches a steady state. We do not want to output dozens or even hundreds of the same board if it is not changing between generations. That is why we create a lastGenBoard and set it equal to the first board. From here on out after we run nextGeneration on a board, we can then compare that to the lastGenBoard. If they are the same, all future generations will be the same, and thus we can skip printing all future generations and output a message that a steady state has been reached. 
 
   for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
     //advance one generation
@@ -390,7 +392,7 @@ Here the for loop to iterate over all the desired generations starts. The board 
       startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
     }
 
-The next thing to do is to check if the page is full before we can add the current board to the page. if it is full we pring out the page, clear the page, and reset the boardsOnPageSoFar and startingColumn both to 0. Then, after the full page as been printed and cleared we can the current board to the fresh page. Otherwise, if the page isn't full we just add the current board to the page. 
+The next thing to do is to check if the page is full before we can add the current board to the page. if it is full we print out the page, clear the page, and reset the boardsOnPageSoFar and startingColumn both to 0. Then, after the full page has been printed and cleared we can the current board to the fresh page. Otherwise, if the page isn't full we just add the current board to the page. 
  
     //sets the last gen board to current board
     for (int y = 0; y < ROWS; ++y){
@@ -412,7 +414,7 @@ Next, the board has been added to the page, we set the last generation board to 
   }
 }
 
-Lastly, whatever is left on the final page array must be printed, since it never gets the check to see if it's full to print. Even if it is techinically full, it never has a following generation that triggers the check to see if it's full. And obviously if it isn't full it wouldn't have printed. So we simply print the page and clear it, with the exception that we don't do it if the board has reached a steady state. If the board reaches a steady state and we printed the final page here it would have shown up twice. This prevents a duplicate of the last page in that event. 
+Lastly, whatever is left on the final page array must be printed, since it never gets the check to see if it's full to print. Even if it is technically full, it never has a following generation that triggers the check to see if it's full. And obviously if it isn't full it wouldn't have printed. So we simply print the page and clear it, with the exception that we don't do it if the board has reached a steady state. If the board reaches a steady state and we printed the final page here it would have shown up twice. This prevents a duplicate of the last page in that event. 
 
 
 //Glider
@@ -426,6 +428,7 @@ void makeGlider(int board[ROWS][COLUMNS]){
 
 //Cheshire cat
 void makeCheshireCat(int board[ROWS][COLUMNS]){
+ 
   board[2][5] = 1;
   board[2][8] = 1;
   board[3][5] = 1;
@@ -444,10 +447,12 @@ void makeCheshireCat(int board[ROWS][COLUMNS]){
   board[7][6] = 1;
   board[7][7] = 1;
   board[7][8] = 1;
+ 
 }
 
 //Pulsar
 void makePulsar(int board[ROWS][COLUMNS]){
+ 
   board[1][3] = 1;
   board[1][4] = 1;
   board[1][5] = 1;
@@ -497,9 +502,11 @@ void makePulsar(int board[ROWS][COLUMNS]){
   board[13][10] = 1;
   board[13][11] = 1;
 }
+ 
 
 //Gosper Glider Gun
 void makeGliderGun(int board[ROWS][COLUMNS]){
+ 
   board[5][1] = 1;
   board[5][2] = 1;
   board[6][1] = 1;
@@ -536,6 +543,7 @@ void makeGliderGun(int board[ROWS][COLUMNS]){
   board[4][35] = 1;
   board[3][36] = 1;
   board[4][36] = 1;
+ 
 }
 
 These last few functions simply create the starting boards for the different patterns that are used. 
@@ -550,7 +558,7 @@ int main(){
   
   //initializes the text file for output
   ofstream gamePrintout;
-  gamePrintout.open("gameOfLifeProgramResult");
+  gamePrintout.open(FILENAME);
 
 In the main() the board and page arrays are first initialized, and next the file that will be the printout will be initialized. 
 
@@ -576,7 +584,8 @@ In the main() the board and page arrays are first initialized, and next the file
   
 }
 
-These last four blocks each run a different pattern and clear the boards to make it ready for the next pattern. First is a glider, next is a cheshire cat, third is a pulsar, and last is a glider gun. Above each one in the comments is the recommended size for the ROWS and COLUMNS to be set to at the top of the program using #define. They differ for each pattern so it is recommend that you comment out all but one pattern and run them one at a time, otherwise the board that is just big enough for the glider gun, will be way lager than necissary for the individual glider. If you run them one at a time, make sure to also change the file name so it makes a new file for each pattern. 
+These last four blocks each run a different pattern and clear the boards to make it ready for the next pattern. First is a glider, next is a Cheshire cat, third is a pulsar, and last is a glider gun. Above each one in the comments is the recommended size for the ROWS and COLUMNS to be set to at the top of the program using #define. They differ for each pattern so it is recommend that you comment out all but one pattern and run them one at a time (settings ROWS and COLUMNS to the recommended settings), otherwise the board that is just big enough for the glider gun, will be way lager than necessary for the individual glider. If you run them one at a time, make sure to also change the file name so it makes a new file for each pattern. 
 
 
-For testing, I did not have visual studio at home, or any other compiler. I did all my coding and testing on web based compilers. This means I was not able to test the file creation functionality at home. So when I created this program I instead used cout << instead of the gamePrintout << which sends it to the file object. 
+For testing, I did not have visual studio at home, or any other compiler. I did all my coding and testing on web based compilers. This means I was not able to test the file creation functionality at home. So when I created this program I instead used cout << instead of the gamePrintout << which sends it to the file object. I was then able to see what the program was “printing”. 
+
