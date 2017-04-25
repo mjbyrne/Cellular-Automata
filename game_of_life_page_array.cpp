@@ -6,106 +6,26 @@ using namespace std;
 #define COLUMNS 45
 //COLUMNS must not exceed PAGEWIDTH - 5
 
-//adds board to page page
-void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar){
-  for (int y=0; y < ROWS +2; y++){
-    for(int x=0; x < COLUMNS +2; x++){
-      //top or bottom border
-      if(y==0 || y == ROWS +1){
-        for(int i= 0; i< COLUMNS +2; i++){
-          page[y][i+startingColumn] = '-';
-        }
-        page[y][startingColumn] = '+';
-        page[y][startingColumn + COLUMNS +1] = '+';
-      }
-      else {
-        //creates left and right borders
-        if(x==0 || x == COLUMNS +1){
-          page[y][x + startingColumn] = '|';
-          }
-        
-        else {
-          if(board[y-1][x-1] ==0){
-            page[y][x + startingColumn] = ' ';
-          }
-          else {
-            page[y][x + startingColumn] = 'X';
-          }
-        }
-      }
+
+//sets all values in board to 0
+void clearBoard(int board[ROWS][COLUMNS]){
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x < COLUMNS; ++x){
+      board[y][x] = 0;
     }
   }
-  
-  // The board has now been added to the page array
-  // The final step is to add the generation number to the bottom border
-  // we need to seperate the digits of the generation number and convert them to characters 
-  int GenDigits[3] ={0};
-  //we will be getting the ones place first so has to start in GenDigits[2] and go backwards
-  int digitStartingSpot = 2;
-  //using a copy so we don't lose the generationsSoFar that we need to keep using
-  int generationsSoFarCopy = generationsSoFar;
-  int digit = 0;
-  //puts the generation number in an array of size 3 by digit so we can convert to character for the character array
-  //so a limitation of this program is that it can only run up to 999 generations as it is now
-  for(int i = 0; i < 3; i++){
-    digit = generationsSoFarCopy%10;
-    generationsSoFarCopy = generationsSoFarCopy/10;
-    GenDigits[digitStartingSpot] = digit;
-    digitStartingSpot--;
-  }
-  GenDigits[digitStartingSpot] = digit;
-  //We now have the digits seperated into an integer array of size 3
-  //Next we will create a character array of size 3 and conver the digits to characters thats can be placed into page
-  char GenDigitsChar[3] = {0};
-  for(int z = 0; z<3; z++){
-    if (z == 0 && GenDigits[0] == 0){
-      GenDigitsChar[z] = ' ';
-    }
-    else if (z==1 && GenDigits[0] == 0 && GenDigits[1] == 0){
-      GenDigitsChar[z] = ' ';
-    }
-    else{
-      if (GenDigits[z] == 0){
-          GenDigitsChar[z] = '0';
-      }
-      else if (GenDigits[z] == 1){
-        GenDigitsChar[z] = '1';
-      }
-      else if (GenDigits[z] == 2){
-        GenDigitsChar[z] = '2';
-      }
-      else if (GenDigits[z] == 3){
-        GenDigitsChar[z] = '3';
-      }
-      else if (GenDigits[z] == 4){
-         GenDigitsChar[z] = '4';
-      }
-      else if (GenDigits[z] == 5){
-        GenDigitsChar[z] = '5';
-      }
-      else if (GenDigits[z] == 6){
-        GenDigitsChar[z] = '6';
-      }
-      else if (GenDigits[z] == 7){
-        GenDigitsChar[z] = '7';
-      }
-      else if (GenDigits[z] == 8){
-        GenDigitsChar[z] = '8';
-      }
-      else {
-        GenDigitsChar[z] = '9';
-      }
-    }
-  }
-  page[ROWS+1][startingColumn + (COLUMNS/2) -3] = 'G';
-  page[ROWS+1][startingColumn + (COLUMNS/2) -2] = 'e';
-  page[ROWS+1][startingColumn + (COLUMNS/2) -1] = 'n';
-  page[ROWS+1][startingColumn + (COLUMNS/2)] = GenDigitsChar[0];
-  page[ROWS+1][startingColumn + (COLUMNS/2) +1] = GenDigitsChar[1];
-  page[ROWS+1][startingColumn + (COLUMNS/2) +2] = GenDigitsChar[2];
-  
 }
 
+//sets all values in page to ' '
+void clearpage(char page[ROWS + 5][PAGEWIDTH]){
+  for (int y = 0; y < ROWS+5; ++y){
+    for(int x = 0; x < PAGEWIDTH; ++x){
+      page[y][x] = ' ';
+    }
+  }
+}
+
+//prints the page array
 void printPage(char page[ROWS + 5][PAGEWIDTH]){
   for(int y = 0; y < ROWS +5; ++y){
     for(int x = 0; x < PAGEWIDTH; ++x){
@@ -119,6 +39,7 @@ void printPage(char page[ROWS + 5][PAGEWIDTH]){
   }
 }
 
+//takes the board given and overwrites it with the next generation board
 void nextGeneration(int board[ROWS][COLUMNS]) {
   int neighbors[ROWS][COLUMNS] = {0};
   int neighborXPos = 0;
@@ -260,23 +181,103 @@ void nextGeneration(int board[ROWS][COLUMNS]) {
   }
 }
 
-//sets all values in board to 0
-void clearBoard(int board[ROWS][COLUMNS]){
-  for (int y = 0; y < ROWS; ++y){
-    for(int x = 0; x < COLUMNS; ++x){
-      board[y][x] = 0;
+//adds board to page
+void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar){
+  for (int y=0; y < ROWS +2; y++){
+    for(int x=0; x < COLUMNS +2; x++){
+      //top or bottom border
+      if(y==0 || y == ROWS +1){
+        for(int i= 0; i< COLUMNS +2; i++){
+          page[y][i+startingColumn] = '-';
+        }
+        page[y][startingColumn] = '+';
+        page[y][startingColumn + COLUMNS +1] = '+';
+      }
+      else {
+        //creates left and right borders
+        if(x==0 || x == COLUMNS +1){
+          page[y][x + startingColumn] = '|';
+          }
+        else {
+          if(board[y-1][x-1] ==0){
+            page[y][x + startingColumn] = ' ';
+          }
+          else {
+            page[y][x + startingColumn] = 'X';
+          }
+        }
+      }
     }
   }
+  // The board has now been added to the page array
+  // The final step is to add the generation number to the bottom border
+  // we need to seperate the digits of the generation number and convert them to characters 
+  int GenDigits[3] ={0};
+  //we will be getting the ones place first so has to start in GenDigits[2] and go backwards
+  int digitStartingSpot = 2;
+  //using a copy so we don't lose the generationsSoFar that we need to keep using
+  int generationsSoFarCopy = generationsSoFar;
+  int digit = 0;
+  //puts the gen number in an array of size 3 by digit so we can convert to character for the character array
+  //a limitation of this program is that it can only run up to 999 generations as it is now
+  for(int i = 0; i < 3; i++){
+    digit = generationsSoFarCopy%10;
+    generationsSoFarCopy = generationsSoFarCopy/10;
+    GenDigits[digitStartingSpot] = digit;
+    digitStartingSpot--;
+  }
+  GenDigits[digitStartingSpot] = digit;
+  //We now have the digits seperated into an integer array of size 3
+  //Next we will create a character array of size 3 and conver the digits to characters thats can be placed into page
+  char GenDigitsChar[3] = {0};
+  for(int z = 0; z<3; z++){
+    if (z == 0 && GenDigits[0] == 0){
+      GenDigitsChar[z] = ' ';
+    }
+    else if (z==1 && GenDigits[0] == 0 && GenDigits[1] == 0){
+      GenDigitsChar[z] = ' ';
+    }
+    else{
+      if (GenDigits[z] == 0){
+          GenDigitsChar[z] = '0';
+      }
+      else if (GenDigits[z] == 1){
+        GenDigitsChar[z] = '1';
+      }
+      else if (GenDigits[z] == 2){
+        GenDigitsChar[z] = '2';
+      }
+      else if (GenDigits[z] == 3){
+        GenDigitsChar[z] = '3';
+      }
+      else if (GenDigits[z] == 4){
+         GenDigitsChar[z] = '4';
+      }
+      else if (GenDigits[z] == 5){
+        GenDigitsChar[z] = '5';
+      }
+      else if (GenDigits[z] == 6){
+        GenDigitsChar[z] = '6';
+      }
+      else if (GenDigits[z] == 7){
+        GenDigitsChar[z] = '7';
+      }
+      else if (GenDigits[z] == 8){
+        GenDigitsChar[z] = '8';
+      }
+      else {
+        GenDigitsChar[z] = '9';
+      }
+    }
+  }
+  page[ROWS+1][startingColumn + (COLUMNS/2) -3] = 'G';
+  page[ROWS+1][startingColumn + (COLUMNS/2) -2] = 'e';
+  page[ROWS+1][startingColumn + (COLUMNS/2) -1] = 'n';
+  page[ROWS+1][startingColumn + (COLUMNS/2)] = GenDigitsChar[0];
+  page[ROWS+1][startingColumn + (COLUMNS/2) +1] = GenDigitsChar[1];
+  page[ROWS+1][startingColumn + (COLUMNS/2) +2] = GenDigitsChar[2];
 }
 
-//sets all values in page to ' '
-void clearpage(char page[ROWS + 5][PAGEWIDTH]){
-  for (int y = 0; y < ROWS+5; ++y){
-    for(int x = 0; x < PAGEWIDTH; ++x){
-      page[y][x] = ' ';
-    }
-  }
-}
 
 //iterates over multiple numOfGenerations
 void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int numOfGenerations){
@@ -291,7 +292,8 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
   int generationsSoFar = 0;
   //number of boards on the page array
   int boardsOnPageSoFar = 0;
-  //number of full boards that can fit on one page, the +5 is because 2 are from the border and 3 will be the spaces in between boards
+  //number of full boards that can fit on one page
+  //the +5 is because 2 are from the border and 3 will be the spaces in between boards
   int boardsPerPage = PAGEWIDTH / (COLUMNS+5);
   //the startingColumn will be the width of one board times the number of boards already placed
   int startingColumn = boardsOnPageSoFar * (COLUMNS + 5); 
@@ -482,7 +484,7 @@ int main(){
   int board[ROWS][COLUMNS] = {0};
   //creates the array that we will be printing out initializes every entry as null
   char page[ROWS + 5][PAGEWIDTH] = {0};
-  //use the clearpage function to make the page array all ' ' 
+  //use the clearpage function to make the page array all ' ' (spaces)
   clearpage(page);
 
  //recommend setting ROWS to 9 and COLUMNS to 9 
