@@ -1,9 +1,9 @@
 #include <iostream>
 #include <iomanip>
 using namespace std;
-#define PAGEWIDTH 72
-#define ROWS 25
-#define COLUMNS 45
+#define PAGEWIDTH 100
+#define ROWS 9
+#define COLUMNS 12
 //COLUMNS must not exceed PAGEWIDTH - 5
 
 
@@ -11,7 +11,7 @@ using namespace std;
 void clearBoard(int board[ROWS][COLUMNS]){
   for (int y = 0; y < ROWS; ++y){
     for(int x = 0; x < COLUMNS; ++x){
-      board[y][x] = 0;
+      board[y][x] = 0; 
     }
   }
 }
@@ -226,7 +226,8 @@ void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int s
     GenDigits[digitStartingSpot] = digit;
     digitStartingSpot--;
   }
-  GenDigits[digitStartingSpot] = digit;
+
+  
   //We now have the digits seperated into an integer array of size 3
   //Next we will create a character array of size 3 and conver the digits to characters thats can be placed into page
   char GenDigitsChar[3] = {0};
@@ -492,6 +493,7 @@ int main(){
   runGenerations(board, page, 48);
   clearBoard(board);
   
+  /*
   //recommend setting ROWS to 11 and COLUMNS to 15
   makeCheshireCat(board);
   runGenerations(board, page, 10);
@@ -506,5 +508,5 @@ int main(){
   makeGliderGun(board);
   runGenerations(board, page, 67);
   clearBoard(board);
-  
+  */
 }
