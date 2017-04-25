@@ -1,0 +1,394 @@
+Michael Byrne								     CSC 491
+					Game of Life
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+#define PAGEWIDTH 72
+#define ROWS 25
+#define COLUMNS 45
+//COLUMNS must not exceed PAGEWIDTH - 5
+
+This is the begining of the code. The #define was used for the width of the page that will be printed. This should be set to the total number of characters that can fit on a line in the word document viewer that is being used. The Rows and Columns also use #define so they can be changed depending on the size of the boards to be used. It is recommended to comment out the programs in main that you don't want to run at a certain board dimension and do them later with the dimensions you want. If COLUMNS is larger than PAGEWIDTH - 5 then the board will be bigger than the page it is going to be placed on and will not work. 
+
+
+//sets all values in board to 0
+void clearBoard(int board[ROWS][COLUMNS]){
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x < COLUMNS; ++x){
+      board[y][x] = 0;
+    }
+  }
+} 
+
+The clearBoard function takes the board passed to it and sets all values to zero. 
+
+
+//sets all values in page to ' '
+void clearpage(char page[ROWS + 5][PAGEWIDTH]){
+  for (int y = 0; y < ROWS+5; ++y){
+    for(int x = 0; x < PAGEWIDTH; ++x){
+      page[y][x] = ' ';
+    }
+  }
+}
+
+The clearPage function sets all values in the page array to spaces. This makes it so we can add new boards to the page array by just setting the value at the indices to whatever the character we want. Since the rest will be blank we wont have to worry about them. 
+
+
+//prints the page array
+void printPage(char page[ROWS + 5][PAGEWIDTH], ofstream & gamePrintout){
+  for(int y = 0; y < ROWS +5; ++y){
+    for(int x = 0; x < PAGEWIDTH; ++x){
+      if(x == PAGEWIDTH -1){
+        gamePrintout << endl;
+      }
+      else{
+        gamePrintout << page[y][x];
+      }
+    }
+  }
+}
+
+The printPage function simply goes through each value in the page array from left to right, top to bottom and sends the value " which would either be a character or endl; to the file. When testing this, and the program as a whole, since I don't have visual studio, I used cout calls so I could just see what it was printing as it was doing it. Up to and including final testing it looked like this:
+
+//prints the page array
+void printPage(char page[ROWS + 5][PAGEWIDTH){
+  for(int y = 0; y < ROWS +5; ++y){
+    for(int x = 0; x < PAGEWIDTH; ++x){
+      if(x == PAGEWIDTH -1){
+        cout << endl;
+      }
+      else{
+        cout << page[y][x];
+      }
+    }
+  }
+}
+
+Note that it does not have the file object passed to it. 
+
+
+This next function, nextGeneration, is the driving force in this whole program. It is what impliments the rules of Conway's Game of Life to the board passed to it and overwrites that board with the next generation. First a new array called neighbors is initialized with the same number of rows and columns as the board array. It is initialzed to have all values of 0. Next, neighborXPos and neighborYPos are initialized. They will hold the coordinates of the values to be viewed in the board array. That is to say that as the program goes through the 8 neighbors for each cell in board, the neighborXPos and neighborYPos holds the position of each neighbor as it goes through each one at a time. 
+
+//takes the board given and overwrites it with the next generation board
+void nextGeneration(int board[ROWS][COLUMNS]) {
+  int neighbors[ROWS][COLUMNS] = {0};
+  int neighborXPos = 0;
+  int neighborYPos = 0;
+  //Create new board called neighbors and set the value of each space equal to the number of alive neighbors it has
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x < COLUMNS; ++x){
+      for(int neighborNumber = 0; neighborNumber < 8; ++neighborNumber){
+        //above and left
+        if (neighborNumber == 0){ 
+          if (y==0){
+            neighborYPos = ROWS-1;
+          }
+          else {
+            neighborYPos = y-1;
+          }
+          if (x==0){
+            neighborXPos = COLUMNS-1;
+          }
+          else{
+            neighborXPos = x-1;
+          }
+          neighbors[y][x] +=board[neighborYPos][neighborXPos];
+        }
+        //above  
+        if (neighborNumber == 1){
+          if(y==0){
+            neighborYPos = ROWS-1;
+          }
+          else {
+            neighborYPos = y-1;
+          }
+          neighborXPos = x;
+          neighbors[y][x] +=board[neighborYPos][neighborXPos];
+        }
+        //above and right
+        if (neighborNumber == 2){
+          if(y==0){
+            neighborYPos = ROWS-1;
+          }
+          else{
+            neighborYPos = y-1;
+          }
+          if(x==COLUMNS-1){
+            neighborXPos = 0;
+          }
+          else {
+            neighborXPos = x+1;
+          }
+          neighbors[y][x] += board[neighborYPos][neighborXPos];
+        }
+        // left
+        if (neighborNumber == 3){
+          if(x==0){
+            neighborXPos = COLUMNS-1;
+          }
+          else {
+            neighborXPos = x-1;
+          }
+          neighborYPos = y;
+          neighbors[y][x] += board[neighborYPos][neighborXPos];
+        }
+        // right
+        if (neighborNumber == 4){
+          if(x==COLUMNS-1){
+            neighborXPos = 0;
+          }
+          else {
+            neighborXPos = x+1;
+          }
+          neighborYPos = y;
+          neighbors[y][x] += board[neighborYPos][neighborXPos];
+        }
+        //below and left
+        if (neighborNumber == 5){
+          if (y==ROWS-1){
+            neighborYPos = 0;
+          }
+          else {
+            neighborYPos = y+1;
+          }
+          if(x==0){
+            neighborXPos = COLUMNS-1;
+          }
+          else{
+            neighborXPos = x-1;
+          }
+          neighbors[y][x] += board[neighborYPos][neighborXPos];
+        }
+        // below
+        if (neighborNumber == 6){
+          if(y==ROWS-1){
+            neighborYPos = 0;
+          }
+          else {
+            neighborYPos = y+1;
+          }
+          neighborXPos = x;
+          neighbors[y][x] +=board[neighborYPos][neighborXPos];
+        }
+        // below and right
+        if (neighborNumber == 7){
+          if(y==ROWS-1){
+            neighborYPos = 0;
+          }
+          else {
+            neighborYPos = y+1;
+          }
+          if(x==COLUMNS-1){
+            neighborXPos = 0;
+          }
+          else {
+            neighborXPos = x+1;
+          }
+          neighbors[y][x] +=board[neighborYPos][neighborXPos];
+        }
+      }
+    }
+  }
+The two outer most for loops makes it so that the function iterates over each cell in board. The third for loop goes through each of the  8 neighbors. The neighbors are labelled in the comments as "above and left", "above", "right", ect. For each neighbor the top to bottom and side to side adjacencies are accounted for with if statements. For example, for the first neighbor which is above and to the left, if the cell that is being looked at in the board array is [0][x], the top row of the board, then the row that it looks at for this neighbor is ROWS-1 which is the bottom most row. Likewise, if it is in the leftmost column, board[y][0], then it looks at the rightmost column, board [y][COLUMNS -1], for the neighbor. All of the appropiate boundry conditions are checked for each of the rest of the neighbors. Once the neighborXPos and neighborYPos are determined, the value of board[neighborYPos][neighborXPos] is just added to neighbors[y][x]. This can be done since an alive cell has a value of 1 and a dead cell has a value of 0. Thus the sum of all the values at the neighbor positions will simply be the total number of alive neighbors that cell has.  Now we have an array called neighbors that for each neighbors[y][x], has the exact amount of alive neighbors for the corresponding board[y][x] cell. 
+
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x <= COLUMNS; ++x){
+      if(board[y][x] == 1 and neighbors[y][x] < 2){
+        board[y][x] = 0;
+      }
+      if(board[y][x] == 1 and neighbors[y][x] == 2){
+        board[y][x] = 1;
+      }
+      if(board[y][x] == 1 and neighbors[y][x] == 3){
+        board[y][x] = 1;
+      }
+      if(board[y][x] == 1 and neighbors[y][x] > 3){
+        board[y][x] = 0;
+      }
+      if(board[y][x] == 0 and neighbors[y][x] == 3){
+        board[y][x] = 1;
+      }
+    }
+  }
+}
+This part of the function goes through the neighbors array and board array and applies the rules of the game of life to the cells in board. This overwrites the cells in the board array as it goes through them but that won't effect the other cells since the neighbors array holds all the information we need about each individual cell in its coressponding cell. This is how the function can apply the next generation to the board all at once. 
+
+
+The next function adds the board passed to it to the page array that will eventually be printed. This is done so multiple boards can be printed side by side if they are small enough. 
+
+//adds board to page
+void boardToPage(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int startingColumn, int generationsSoFar){
+  for (int y=0; y < ROWS +2; y++){
+    for(int x=0; x < COLUMNS +2; x++){
+      //top or bottom border
+      if(y==0 || y == ROWS +1){
+        for(int i= 0; i< COLUMNS +2; i++){
+          page[y][i+startingColumn] = '-';
+        }
+        page[y][startingColumn] = '+';
+        page[y][startingColumn + COLUMNS +1] = '+';
+      }
+      else {
+        //creates left and right borders
+        if(x==0 || x == COLUMNS +1){
+          page[y][x + startingColumn] = '|';
+          }
+        else {
+          if(board[y-1][x-1] ==0){
+            page[y][x + startingColumn] = ' ';
+          }
+          else {
+            page[y][x + startingColumn] = 'X';
+          }
+        }
+      }
+    }
+  }
+The outer loop here goes from 0 up to but not including ROWS+2 because ROWS+1 (the last y value used in the loop) would be two rows beyond what the board has, and we want to add 2 rows for the borders. This is done for the next loop for the columns as well. So if it is in the first ([0]) or last {[ROWS+1] or [COLUMNS+1]) spot the if statements catch it and adds the boarder. Otherwise the page array looks at the board[y-1][x-1] to look at the corresponding cell in the board array. If it's 0, the page array cell gets ' ' (a space) and if it's a 1 the page array cell gets 'X'. Note that for the corresponding page cell in the column value it is not just x from the for loop. It is x + the starting column. The starting column tells which column will be the first one for the board, hence the name. After each board is placed into the page the starting column is changed, but that is done in another function. 
+
+
+This next part of the function is all to add the generation number to the bottom of the border. 
+
+  // The board has now been added to the page array
+  // The final step is to add the generation number to the bottom border
+  // we need to seperate the digits of the generation number and convert them to characters 
+  int GenDigits[3] ={0};
+  //we will be getting the ones place first so has to start in GenDigits[2] and go backwards
+  int digitStartingSpot = 2;
+  //using a copy so we don't lose the generationsSoFar that we need to keep using
+  int generationsSoFarCopy = generationsSoFar;
+  int digit = 0;
+  //puts the gen number in an array of size 3 by digit so we can convert to character for the character array
+  //a limitation of this program is that it can only run up to 999 generations as it is now
+  for(int i = 0; i < 3; i++){
+    digit = generationsSoFarCopy%10;
+    generationsSoFarCopy = generationsSoFarCopy/10;
+    GenDigits[digitStartingSpot] = digit;
+    digitStartingSpot--;
+  }
+  GenDigits[digitStartingSpot] = digit;
+  //We now have the digits seperated into an integer array of size 3
+  //Next we will create a character array of size 3 and conver the digits to characters thats can be placed into page
+  char GenDigitsChar[3] = {0};
+  for(int z = 0; z<3; z++){
+    if (z == 0 && GenDigits[0] == 0){
+      GenDigitsChar[z] = ' ';
+    }
+    else if (z==1 && GenDigits[0] == 0 && GenDigits[1] == 0){
+      GenDigitsChar[z] = ' ';
+    }
+    else{
+      if (GenDigits[z] == 0){
+          GenDigitsChar[z] = '0';
+      }
+      else if (GenDigits[z] == 1){
+        GenDigitsChar[z] = '1';
+      }
+      else if (GenDigits[z] == 2){
+        GenDigitsChar[z] = '2';
+      }
+      else if (GenDigits[z] == 3){
+        GenDigitsChar[z] = '3';
+      }
+      else if (GenDigits[z] == 4){
+         GenDigitsChar[z] = '4';
+      }
+      else if (GenDigits[z] == 5){
+        GenDigitsChar[z] = '5';
+      }
+      else if (GenDigits[z] == 6){
+        GenDigitsChar[z] = '6';
+      }
+      else if (GenDigits[z] == 7){
+        GenDigitsChar[z] = '7';
+      }
+      else if (GenDigits[z] == 8){
+        GenDigitsChar[z] = '8';
+      }
+      else {
+        GenDigitsChar[z] = '9';
+      }
+    }
+  }
+  page[ROWS+1][startingColumn + (COLUMNS/2) -3] = 'G';
+  page[ROWS+1][startingColumn + (COLUMNS/2) -2] = 'e';
+  page[ROWS+1][startingColumn + (COLUMNS/2) -1] = 'n';
+  page[ROWS+1][startingColumn + (COLUMNS/2)] = GenDigitsChar[0];
+  page[ROWS+1][startingColumn + (COLUMNS/2) +1] = GenDigitsChar[1];
+  page[ROWS+1][startingColumn + (COLUMNS/2) +2] = GenDigitsChar[2];
+}
+
+Since the page array is a character array the generationsSoFar that was passed to the function must be seperated by its digits and then those digits must be converted from integers to characters. To seperate the digits it is a simple matter of using the modulus function to get the right most digit. Since we're counting the generations in decimal, mod 10 of the generationsSoFarCopy gives the ones digits. A copy is used such that we don't effect the generationsSoFar that will be used later. That ones digit gets added to the corresponding ones place in the GenDigits array. From there the generationsSoFarCopy is divided by 10 using integer division, effectivly chopping off the right most digit. This process is then repeated for the what would be the 10's and 100's place. As the program is, it can only handle doing up to 999 generations because the array size is hard coded as 3. This was a design choice because doing 1000+ generations was determined to be unessicary for the scope of this program. This could be easily changed however. Next a corresponding character array is made called GenDigitsChar and is initialized to have all space characters. Finally it is just matter of going through each GenDigit index and comparing it to 0-9 until it hits the one it's equal to. That then sets it to the corresponding character. From here 'G''e''n' is added to the bottom border, and then the final characters that is the number of the current generation. Note that the spaces are maintained in the 10's and 100's spots instead of a leading 0, thus "Gen   3" is added to the border and not "Gen003". 
+
+
+So far we have have a function to create the next generation board and a function to put that board onto the page array. Now we want a function that will do that over however many generations we want to run through. That's where this next and final function comes in. 
+
+//iterates over multiple numOfGenerations
+void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], int numOfGenerations, ofstream & gamePrintout){
+  //create a secondary board and set it equal to the starting board
+  int lastGenBoard[ROWS][COLUMNS] = {0};
+  for (int y = 0; y < ROWS; ++y){
+    for(int x = 0; x < COLUMNS; ++x){
+      lastGenBoard[y][x] = board[y][x];
+    }
+  }
+  //number of generations iterated so far
+  int generationsSoFar = 0;
+  //number of boards on the page array
+  int boardsOnPageSoFar = 0;
+  //number of full boards that can fit on one page
+  //the +5 is because 2 are from the border and 3 will be the spaces in between boards
+  int boardsPerPage = PAGEWIDTH / (COLUMNS+5);
+  //the startingColumn will be the width of one board times the number of boards already placed
+  int startingColumn = boardsOnPageSoFar * (COLUMNS + 5); 
+  //add the starting board to page
+  boardToPage(board, page, startingColumn, generationsSoFar);
+  generationsSoFar ++; 
+  boardsOnPageSoFar ++;
+  startingColumn = boardsOnPageSoFar * (COLUMNS + 5);
+  //flag to be used to see if the board changes
+  bool areTheBoardsTheSame = true;
+
+This part of the function initializes all the variables we will need as well as adds generation 0 to the board. A special condition we want to check for is if a board reaches a steady state. We do not want to output dozens or even hundreds of the same board if it is not changing between generations. That is wdhy we create a lastGenBoard and set it equal to the first board. From here on out after we run nextGeneration on a board, we can then compare that to the lastGenBoard. If they are the same, all future generations will be the same, and thus we can skip printing all future generations and output a message that a steady state has been reached. 
+
+  for(generationsSoFar; generationsSoFar <= numOfGenerations; generationsSoFar ++){
+    //advance one generation
+    nextGeneration(board);
+    //check to see if the current generation has changed at all
+    areTheBoardsTheSame = true;
+    for (int y = 0; y < ROWS; ++y){
+      for(int x = 0; x < COLUMNS; ++x){
+        if (lastGenBoard[y][x] != board[y][x]){
+          areTheBoardsTheSame = false;
+        }
+      }
+    }
+He the for loop to iterate over all the desired generations starts. The board is immediately put through nextGeneration. It is then checked to see if any changes at all were made from the last generation board. If there is a single difference the 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
