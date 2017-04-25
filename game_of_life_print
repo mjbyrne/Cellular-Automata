@@ -319,8 +319,8 @@ void runGenerations(int board[ROWS][COLUMNS], char page[ROWS + 5][PAGEWIDTH], in
     }
     if (areTheBoardsTheSame == true){
       printPage(page, gamePrintout);
-      cout << "This board has reached a static image." << endl;
-      cout << "All future generations are identical." << endl << endl << endl << endl;
+      gamePrintout << "This board has reached a static image." << endl;
+      gamePrintout << "All future generations are identical." << endl << endl << endl << endl;
       break;
     }
     //if the page is full, print it, clear it, add the board to the page, and set counter of boards to 1
